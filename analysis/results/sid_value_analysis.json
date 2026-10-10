@@ -1,0 +1,1467 @@
+{
+  "meta": {
+    "train_csv": "/root/autodl-tmp/code/data/Amazon/train/Industrial_and_Scientific_5_2016-10-2018-11.csv",
+    "test_csv": "/root/autodl-tmp/code/data/Amazon/test/Industrial_and_Scientific_5_2016-10-2018-11.csv",
+    "index_json": "/root/autodl-tmp/code/data/Amazon/index/Industrial_and_Scientific.index.json",
+    "train_rows": 36259,
+    "test_rows": 4533,
+    "beam": 20,
+    "topk": [
+      1,
+      3,
+      5,
+      10,
+      20
+    ],
+    "hit_rule": "first exact SID match; HR@k credited when rank<k (same as calc.py)",
+    "frequency_definition": "count of target item as next-item label in TRAIN split",
+    "models": {
+      "SASRec": "/root/autodl-tmp/runs/sasrec_baseline/d_h64_neg100.pt [reconstructed by inference]",
+      "SFT_full": "/root/autodl-tmp/runs/eval_clean_sft/test_beam20.json",
+      "GRPO_1.5ep": "/root/autodl-tmp/runs/eval_grpo_step26274/test_beam20.json",
+      "GRPO_2.0ep": "/root/autodl-tmp/runs/eval_grpo_baseline/test_beam20.json",
+      "GRPO_0.25ep_orig": "/root/autodl-tmp/runs/grpo_short025/eval_beam20.json",
+      "GRPO_0.25ep_fast": "/root/autodl-tmp/runs/grpo_fast025/eval_beam20.json",
+      "SFT_preunify": "/root/autodl-tmp/runs/eval_industrial/final_result_Industrial_and_Scientific.json"
+    },
+    "sasrec_ckpt": "/root/autodl-tmp/runs/sasrec_baseline/d_h64_neg100.pt",
+    "sasrec_inference_config": {
+      "hidden": 64,
+      "state": 10,
+      "dropout": 0.3,
+      "heads": 1
+    },
+    "sasrec_note": "per-sample top-20 candidates for SASRec were reconstructed by running the already-trained checkpoint (d_h64_neg100, the best of the 4-config sweep); no training was performed. This is required because the sweep only stored aggregate metrics.",
+    "caveat": "All results are correlational. No causal claim is made.",
+    "label_correction": "runs/eval_grpo_step26274/test_beam20.json is the 1.5-epoch checkpoint-26274 of the grpo_baseline run. It was previously (and incorrectly) labelled as a 0.25-epoch run in an earlier revision of this script. The two genuine 0.25-epoch runs live in runs/grpo_short025/eval_beam20.json (original scheduling) and runs/grpo_fast025/eval_beam20.json (optimized scheduling)."
+  },
+  "model_provenance": [
+    {
+      "model": "SASRec",
+      "path": "/root/autodl-tmp/runs/sasrec_baseline/d_h64_neg100.pt",
+      "label": "reconstructed SASRec baseline",
+      "epoch": "best of 4-config sweep",
+      "HR@20": 0.07147584,
+      "NDCG@20": 0.05156672,
+      "official_HR@20": null,
+      "official_NDCG@20": null,
+      "delta_L1": null,
+      "verdict": "n/a (new baseline, no official reference)"
+    },
+    {
+      "model": "SFT_full",
+      "path": "/root/autodl-tmp/runs/eval_clean_sft/test_beam20.json",
+      "label": "SFT full (36,259 train pairs)",
+      "epoch": "full SFT (all 36,259 train rows)",
+      "HR@20": 0.19832341,
+      "NDCG@20": 0.11786798,
+      "official_HR@20": 0.19832341,
+      "official_NDCG@20": 0.11786798,
+      "delta_L1": 7.5e-09,
+      "verdict": "MATCH"
+    },
+    {
+      "model": "GRPO_1.5ep",
+      "path": "/root/autodl-tmp/runs/eval_grpo_step26274/test_beam20.json",
+      "label": "GRPO 1.5ep (checkpoint-26274 of grpo_baseline)",
+      "epoch": "1.5 epoch = checkpoint-26274 of the grpo_baseline run",
+      "HR@20": 0.16170307,
+      "NDCG@20": 0.10470676,
+      "official_HR@20": 0.16170307,
+      "official_NDCG@20": 0.10470676,
+      "delta_L1": 5.5e-09,
+      "verdict": "MATCH"
+    },
+    {
+      "model": "GRPO_2.0ep",
+      "path": "/root/autodl-tmp/runs/eval_grpo_baseline/test_beam20.json",
+      "label": "GRPO 2.0ep (grpo_baseline/final_checkpoint)",
+      "epoch": "2.0 epoch = grpo_baseline/final_checkpoint",
+      "HR@20": 0.16236488,
+      "NDCG@20": 0.10447064,
+      "official_HR@20": 0.16236488,
+      "official_NDCG@20": 0.10447064,
+      "delta_L1": 1.2e-09,
+      "verdict": "MATCH"
+    },
+    {
+      "model": "GRPO_0.25ep_orig",
+      "path": "/root/autodl-tmp/runs/grpo_short025/eval_beam20.json",
+      "label": "GRPO 0.25ep original scheduling (grpo_short025)",
+      "epoch": "0.25 epoch, original scheduling (grpo_short025)",
+      "HR@20": 0.17626296,
+      "NDCG@20": 0.10885475,
+      "official_HR@20": 0.17626296,
+      "official_NDCG@20": 0.10885475,
+      "delta_L1": 1.7e-09,
+      "verdict": "MATCH"
+    },
+    {
+      "model": "GRPO_0.25ep_fast",
+      "path": "/root/autodl-tmp/runs/grpo_fast025/eval_beam20.json",
+      "label": "GRPO 0.25ep optimized scheduling (grpo_fast025)",
+      "epoch": "0.25 epoch, optimized scheduling (grpo_fast025)",
+      "HR@20": 0.17538054,
+      "NDCG@20": 0.10824989,
+      "official_HR@20": 0.17538054,
+      "official_NDCG@20": 0.10824989,
+      "delta_L1": 5.1e-09,
+      "verdict": "MATCH"
+    },
+    {
+      "model": "SFT_preunify",
+      "path": "/root/autodl-tmp/runs/eval_industrial/final_result_Industrial_and_Scientific.json",
+      "label": "SFT full, evaluated BEFORE prompt unification (legacy protocol)",
+      "epoch": "full SFT evaluated BEFORE prompt unification (legacy protocol)",
+      "HR@20": 0.15376131,
+      "NDCG@20": 0.08471693,
+      "official_HR@20": null,
+      "official_NDCG@20": null,
+      "delta_L1": null,
+      "verdict": "no official reference"
+    }
+  ],
+  "analysis1_popularity_strata": [
+    {
+      "stratum": "interaction-unseen (f=0)",
+      "freq_range": [
+        0,
+        0
+      ],
+      "n": 156,
+      "models": {
+        "SASRec": {
+          "HR@1": 0.0,
+          "HR@3": 0.0,
+          "HR@5": 0.0,
+          "HR@10": 0.0,
+          "HR@20": 0.0,
+          "NDCG@20": 0.0
+        },
+        "SFT_full": {
+          "HR@1": 0.0,
+          "HR@3": 0.0,
+          "HR@5": 0.0,
+          "HR@10": 0.0,
+          "HR@20": 0.0,
+          "NDCG@20": 0.0
+        },
+        "GRPO_1.5ep": {
+          "HR@1": 0.0,
+          "HR@3": 0.032051,
+          "HR@5": 0.044872,
+          "HR@10": 0.057692,
+          "HR@20": 0.057692,
+          "NDCG@20": 0.029768
+        },
+        "GRPO_2.0ep": {
+          "HR@1": 0.0,
+          "HR@3": 0.032051,
+          "HR@5": 0.032051,
+          "HR@10": 0.057692,
+          "HR@20": 0.057692,
+          "NDCG@20": 0.027847
+        },
+        "GRPO_0.25ep_orig": {
+          "HR@1": 0.0,
+          "HR@3": 0.00641,
+          "HR@5": 0.00641,
+          "HR@10": 0.019231,
+          "HR@20": 0.019231,
+          "NDCG@20": 0.007996
+        },
+        "GRPO_0.25ep_fast": {
+          "HR@1": 0.0,
+          "HR@3": 0.00641,
+          "HR@5": 0.019231,
+          "HR@10": 0.019231,
+          "HR@20": 0.019231,
+          "NDCG@20": 0.009004
+        },
+        "SFT_preunify": {
+          "HR@1": 0.0,
+          "HR@3": 0.0,
+          "HR@5": 0.0,
+          "HR@10": 0.0,
+          "HR@20": 0.00641,
+          "NDCG@20": 0.001537
+        }
+      },
+      "delta_ref_minus_SASRec_HR@20": 0.0,
+      "delta_ref_model": "SFT_full"
+    },
+    {
+      "stratum": "f=1",
+      "freq_range": [
+        1,
+        1
+      ],
+      "n": 211,
+      "models": {
+        "SASRec": {
+          "HR@1": 0.0,
+          "HR@3": 0.0,
+          "HR@5": 0.0,
+          "HR@10": 0.0,
+          "HR@20": 0.0,
+          "NDCG@20": 0.0
+        },
+        "SFT_full": {
+          "HR@1": 0.0,
+          "HR@3": 0.004739,
+          "HR@5": 0.009479,
+          "HR@10": 0.009479,
+          "HR@20": 0.018957,
+          "NDCG@20": 0.006564
+        },
+        "GRPO_1.5ep": {
+          "HR@1": 0.004739,
+          "HR@3": 0.009479,
+          "HR@5": 0.009479,
+          "HR@10": 0.028436,
+          "HR@20": 0.07109,
+          "NDCG@20": 0.023987
+        },
+        "GRPO_2.0ep": {
+          "HR@1": 0.004739,
+          "HR@3": 0.009479,
+          "HR@5": 0.009479,
+          "HR@10": 0.033175,
+          "HR@20": 0.066351,
+          "NDCG@20": 0.023442
+        },
+        "GRPO_0.25ep_orig": {
+          "HR@1": 0.0,
+          "HR@3": 0.014218,
+          "HR@5": 0.023697,
+          "HR@10": 0.028436,
+          "HR@20": 0.037915,
+          "NDCG@20": 0.015924
+        },
+        "GRPO_0.25ep_fast": {
+          "HR@1": 0.0,
+          "HR@3": 0.014218,
+          "HR@5": 0.023697,
+          "HR@10": 0.033175,
+          "HR@20": 0.042654,
+          "NDCG@20": 0.017087
+        },
+        "SFT_preunify": {
+          "HR@1": 0.0,
+          "HR@3": 0.004739,
+          "HR@5": 0.004739,
+          "HR@10": 0.004739,
+          "HR@20": 0.004739,
+          "NDCG@20": 0.00237
+        }
+      },
+      "delta_ref_minus_SASRec_HR@20": 0.018957,
+      "delta_ref_model": "SFT_full"
+    },
+    {
+      "stratum": "f=2",
+      "freq_range": [
+        2,
+        2
+      ],
+      "n": 312,
+      "models": {
+        "SASRec": {
+          "HR@1": 0.0,
+          "HR@3": 0.0,
+          "HR@5": 0.0,
+          "HR@10": 0.003205,
+          "HR@20": 0.003205,
+          "NDCG@20": 0.001068
+        },
+        "SFT_full": {
+          "HR@1": 0.0,
+          "HR@3": 0.0,
+          "HR@5": 0.0,
+          "HR@10": 0.00641,
+          "HR@20": 0.022436,
+          "NDCG@20": 0.005891
+        },
+        "GRPO_1.5ep": {
+          "HR@1": 0.00641,
+          "HR@3": 0.009615,
+          "HR@5": 0.009615,
+          "HR@10": 0.022436,
+          "HR@20": 0.054487,
+          "NDCG@20": 0.019777
+        },
+        "GRPO_2.0ep": {
+          "HR@1": 0.00641,
+          "HR@3": 0.00641,
+          "HR@5": 0.00641,
+          "HR@10": 0.019231,
+          "HR@20": 0.054487,
+          "NDCG@20": 0.019368
+        },
+        "GRPO_0.25ep_orig": {
+          "HR@1": 0.0,
+          "HR@3": 0.003205,
+          "HR@5": 0.003205,
+          "HR@10": 0.016026,
+          "HR@20": 0.041667,
+          "NDCG@20": 0.012187
+        },
+        "GRPO_0.25ep_fast": {
+          "HR@1": 0.0,
+          "HR@3": 0.00641,
+          "HR@5": 0.00641,
+          "HR@10": 0.012821,
+          "HR@20": 0.038462,
+          "NDCG@20": 0.011663
+        },
+        "SFT_preunify": {
+          "HR@1": 0.0,
+          "HR@3": 0.0,
+          "HR@5": 0.0,
+          "HR@10": 0.0,
+          "HR@20": 0.00641,
+          "NDCG@20": 0.001537
+        }
+      },
+      "delta_ref_minus_SASRec_HR@20": 0.019231,
+      "delta_ref_model": "SFT_full"
+    },
+    {
+      "stratum": "f=3-5",
+      "freq_range": [
+        3,
+        5
+      ],
+      "n": 940,
+      "models": {
+        "SASRec": {
+          "HR@1": 0.0,
+          "HR@3": 0.0,
+          "HR@5": 0.0,
+          "HR@10": 0.0,
+          "HR@20": 0.002128,
+          "NDCG@20": 0.000522
+        },
+        "SFT_full": {
+          "HR@1": 0.002128,
+          "HR@3": 0.006383,
+          "HR@5": 0.011702,
+          "HR@10": 0.015957,
+          "HR@20": 0.032979,
+          "NDCG@20": 0.012447
+        },
+        "GRPO_1.5ep": {
+          "HR@1": 0.003191,
+          "HR@3": 0.014894,
+          "HR@5": 0.024468,
+          "HR@10": 0.035106,
+          "HR@20": 0.05,
+          "NDCG@20": 0.020711
+        },
+        "GRPO_2.0ep": {
+          "HR@1": 0.004255,
+          "HR@3": 0.014894,
+          "HR@5": 0.02234,
+          "HR@10": 0.034043,
+          "HR@20": 0.046809,
+          "NDCG@20": 0.020431
+        },
+        "GRPO_0.25ep_orig": {
+          "HR@1": 0.001064,
+          "HR@3": 0.009574,
+          "HR@5": 0.015957,
+          "HR@10": 0.023404,
+          "HR@20": 0.038298,
+          "NDCG@20": 0.014357
+        },
+        "GRPO_0.25ep_fast": {
+          "HR@1": 0.001064,
+          "HR@3": 0.011702,
+          "HR@5": 0.015957,
+          "HR@10": 0.023404,
+          "HR@20": 0.03617,
+          "NDCG@20": 0.014227
+        },
+        "SFT_preunify": {
+          "HR@1": 0.001064,
+          "HR@3": 0.003191,
+          "HR@5": 0.007447,
+          "HR@10": 0.009574,
+          "HR@20": 0.017021,
+          "NDCG@20": 0.006602
+        }
+      },
+      "delta_ref_minus_SASRec_HR@20": 0.030851,
+      "delta_ref_model": "SFT_full"
+    },
+    {
+      "stratum": "f=6-20",
+      "freq_range": [
+        6,
+        20
+      ],
+      "n": 1630,
+      "models": {
+        "SASRec": {
+          "HR@1": 0.000613,
+          "HR@3": 0.00184,
+          "HR@5": 0.002454,
+          "HR@10": 0.003067,
+          "HR@20": 0.004908,
+          "NDCG@20": 0.002126
+        },
+        "SFT_full": {
+          "HR@1": 0.022086,
+          "HR@3": 0.038037,
+          "HR@5": 0.059509,
+          "HR@10": 0.109816,
+          "HR@20": 0.158896,
+          "NDCG@20": 0.068728
+        },
+        "GRPO_1.5ep": {
+          "HR@1": 0.018405,
+          "HR@3": 0.034969,
+          "HR@5": 0.045399,
+          "HR@10": 0.088957,
+          "HR@20": 0.134356,
+          "NDCG@20": 0.057213
+        },
+        "GRPO_2.0ep": {
+          "HR@1": 0.018405,
+          "HR@3": 0.034356,
+          "HR@5": 0.047239,
+          "HR@10": 0.085276,
+          "HR@20": 0.141718,
+          "NDCG@20": 0.059126
+        },
+        "GRPO_0.25ep_orig": {
+          "HR@1": 0.020245,
+          "HR@3": 0.042331,
+          "HR@5": 0.060123,
+          "HR@10": 0.111656,
+          "HR@20": 0.166258,
+          "NDCG@20": 0.070099
+        },
+        "GRPO_0.25ep_fast": {
+          "HR@1": 0.019018,
+          "HR@3": 0.043558,
+          "HR@5": 0.056442,
+          "HR@10": 0.107362,
+          "HR@20": 0.16135,
+          "NDCG@20": 0.068002
+        },
+        "SFT_preunify": {
+          "HR@1": 0.009816,
+          "HR@3": 0.026994,
+          "HR@5": 0.039264,
+          "HR@10": 0.069325,
+          "HR@20": 0.12454,
+          "NDCG@20": 0.049028
+        }
+      },
+      "delta_ref_minus_SASRec_HR@20": 0.153988,
+      "delta_ref_model": "SFT_full"
+    },
+    {
+      "stratum": "f>20",
+      "freq_range": [
+        21,
+        null
+      ],
+      "n": 1284,
+      "models": {
+        "SASRec": {
+          "HR@1": 0.147975,
+          "HR@3": 0.159657,
+          "HR@5": 0.16433,
+          "HR@10": 0.19081,
+          "HR@20": 0.243769,
+          "NDCG@20": 0.17871
+        },
+        "SFT_full": {
+          "HR@1": 0.214953,
+          "HR@3": 0.30296,
+          "HR@5": 0.3419,
+          "HR@10": 0.388629,
+          "HR@20": 0.465732,
+          "NDCG@20": 0.317248
+        },
+        "GRPO_1.5ep": {
+          "HR@1": 0.221184,
+          "HR@3": 0.265576,
+          "HR@5": 0.288162,
+          "HR@10": 0.310748,
+          "HR@20": 0.331776,
+          "NDCG@20": 0.269497
+        },
+        "GRPO_2.0ep": {
+          "HR@1": 0.219626,
+          "HR@3": 0.267134,
+          "HR@5": 0.285047,
+          "HR@10": 0.307632,
+          "HR@20": 0.327882,
+          "NDCG@20": 0.266863
+        },
+        "GRPO_0.25ep_orig": {
+          "HR@1": 0.213396,
+          "HR@3": 0.26947,
+          "HR@5": 0.307632,
+          "HR@10": 0.333333,
+          "HR@20": 0.364486,
+          "NDCG@20": 0.27825
+        },
+        "GRPO_0.25ep_fast": {
+          "HR@1": 0.213396,
+          "HR@3": 0.270249,
+          "HR@5": 0.298287,
+          "HR@10": 0.333333,
+          "HR@20": 0.369159,
+          "NDCG@20": 0.278685
+        },
+        "SFT_preunify": {
+          "HR@1": 0.133178,
+          "HR@3": 0.213396,
+          "HR@5": 0.264019,
+          "HR@10": 0.312305,
+          "HR@20": 0.369159,
+          "NDCG@20": 0.23106
+        }
+      },
+      "delta_ref_minus_SASRec_HR@20": 0.221963,
+      "delta_ref_model": "SFT_full"
+    }
+  ],
+  "analysis1b_full_metrics": [
+    {
+      "stratum": "interaction-unseen (f=0)",
+      "model": "SASRec",
+      "n": 156,
+      "HR@1": 0.0,
+      "HR@3": 0.0,
+      "HR@5": 0.0,
+      "HR@10": 0.0,
+      "HR@20": 0.0,
+      "NDCG@20": 0.0
+    },
+    {
+      "stratum": "interaction-unseen (f=0)",
+      "model": "SFT_full",
+      "n": 156,
+      "HR@1": 0.0,
+      "HR@3": 0.0,
+      "HR@5": 0.0,
+      "HR@10": 0.0,
+      "HR@20": 0.0,
+      "NDCG@20": 0.0
+    },
+    {
+      "stratum": "interaction-unseen (f=0)",
+      "model": "GRPO_1.5ep",
+      "n": 156,
+      "HR@1": 0.0,
+      "HR@3": 0.032051,
+      "HR@5": 0.044872,
+      "HR@10": 0.057692,
+      "HR@20": 0.057692,
+      "NDCG@20": 0.029768
+    },
+    {
+      "stratum": "interaction-unseen (f=0)",
+      "model": "GRPO_2.0ep",
+      "n": 156,
+      "HR@1": 0.0,
+      "HR@3": 0.032051,
+      "HR@5": 0.032051,
+      "HR@10": 0.057692,
+      "HR@20": 0.057692,
+      "NDCG@20": 0.027847
+    },
+    {
+      "stratum": "interaction-unseen (f=0)",
+      "model": "GRPO_0.25ep_orig",
+      "n": 156,
+      "HR@1": 0.0,
+      "HR@3": 0.00641,
+      "HR@5": 0.00641,
+      "HR@10": 0.019231,
+      "HR@20": 0.019231,
+      "NDCG@20": 0.007996
+    },
+    {
+      "stratum": "interaction-unseen (f=0)",
+      "model": "GRPO_0.25ep_fast",
+      "n": 156,
+      "HR@1": 0.0,
+      "HR@3": 0.00641,
+      "HR@5": 0.019231,
+      "HR@10": 0.019231,
+      "HR@20": 0.019231,
+      "NDCG@20": 0.009004
+    },
+    {
+      "stratum": "interaction-unseen (f=0)",
+      "model": "SFT_preunify",
+      "n": 156,
+      "HR@1": 0.0,
+      "HR@3": 0.0,
+      "HR@5": 0.0,
+      "HR@10": 0.0,
+      "HR@20": 0.00641,
+      "NDCG@20": 0.001537
+    },
+    {
+      "stratum": "f=1",
+      "model": "SASRec",
+      "n": 211,
+      "HR@1": 0.0,
+      "HR@3": 0.0,
+      "HR@5": 0.0,
+      "HR@10": 0.0,
+      "HR@20": 0.0,
+      "NDCG@20": 0.0
+    },
+    {
+      "stratum": "f=1",
+      "model": "SFT_full",
+      "n": 211,
+      "HR@1": 0.0,
+      "HR@3": 0.004739,
+      "HR@5": 0.009479,
+      "HR@10": 0.009479,
+      "HR@20": 0.018957,
+      "NDCG@20": 0.006564
+    },
+    {
+      "stratum": "f=1",
+      "model": "GRPO_1.5ep",
+      "n": 211,
+      "HR@1": 0.004739,
+      "HR@3": 0.009479,
+      "HR@5": 0.009479,
+      "HR@10": 0.028436,
+      "HR@20": 0.07109,
+      "NDCG@20": 0.023987
+    },
+    {
+      "stratum": "f=1",
+      "model": "GRPO_2.0ep",
+      "n": 211,
+      "HR@1": 0.004739,
+      "HR@3": 0.009479,
+      "HR@5": 0.009479,
+      "HR@10": 0.033175,
+      "HR@20": 0.066351,
+      "NDCG@20": 0.023442
+    },
+    {
+      "stratum": "f=1",
+      "model": "GRPO_0.25ep_orig",
+      "n": 211,
+      "HR@1": 0.0,
+      "HR@3": 0.014218,
+      "HR@5": 0.023697,
+      "HR@10": 0.028436,
+      "HR@20": 0.037915,
+      "NDCG@20": 0.015924
+    },
+    {
+      "stratum": "f=1",
+      "model": "GRPO_0.25ep_fast",
+      "n": 211,
+      "HR@1": 0.0,
+      "HR@3": 0.014218,
+      "HR@5": 0.023697,
+      "HR@10": 0.033175,
+      "HR@20": 0.042654,
+      "NDCG@20": 0.017087
+    },
+    {
+      "stratum": "f=1",
+      "model": "SFT_preunify",
+      "n": 211,
+      "HR@1": 0.0,
+      "HR@3": 0.004739,
+      "HR@5": 0.004739,
+      "HR@10": 0.004739,
+      "HR@20": 0.004739,
+      "NDCG@20": 0.00237
+    },
+    {
+      "stratum": "f=2",
+      "model": "SASRec",
+      "n": 312,
+      "HR@1": 0.0,
+      "HR@3": 0.0,
+      "HR@5": 0.0,
+      "HR@10": 0.003205,
+      "HR@20": 0.003205,
+      "NDCG@20": 0.001068
+    },
+    {
+      "stratum": "f=2",
+      "model": "SFT_full",
+      "n": 312,
+      "HR@1": 0.0,
+      "HR@3": 0.0,
+      "HR@5": 0.0,
+      "HR@10": 0.00641,
+      "HR@20": 0.022436,
+      "NDCG@20": 0.005891
+    },
+    {
+      "stratum": "f=2",
+      "model": "GRPO_1.5ep",
+      "n": 312,
+      "HR@1": 0.00641,
+      "HR@3": 0.009615,
+      "HR@5": 0.009615,
+      "HR@10": 0.022436,
+      "HR@20": 0.054487,
+      "NDCG@20": 0.019777
+    },
+    {
+      "stratum": "f=2",
+      "model": "GRPO_2.0ep",
+      "n": 312,
+      "HR@1": 0.00641,
+      "HR@3": 0.00641,
+      "HR@5": 0.00641,
+      "HR@10": 0.019231,
+      "HR@20": 0.054487,
+      "NDCG@20": 0.019368
+    },
+    {
+      "stratum": "f=2",
+      "model": "GRPO_0.25ep_orig",
+      "n": 312,
+      "HR@1": 0.0,
+      "HR@3": 0.003205,
+      "HR@5": 0.003205,
+      "HR@10": 0.016026,
+      "HR@20": 0.041667,
+      "NDCG@20": 0.012187
+    },
+    {
+      "stratum": "f=2",
+      "model": "GRPO_0.25ep_fast",
+      "n": 312,
+      "HR@1": 0.0,
+      "HR@3": 0.00641,
+      "HR@5": 0.00641,
+      "HR@10": 0.012821,
+      "HR@20": 0.038462,
+      "NDCG@20": 0.011663
+    },
+    {
+      "stratum": "f=2",
+      "model": "SFT_preunify",
+      "n": 312,
+      "HR@1": 0.0,
+      "HR@3": 0.0,
+      "HR@5": 0.0,
+      "HR@10": 0.0,
+      "HR@20": 0.00641,
+      "NDCG@20": 0.001537
+    },
+    {
+      "stratum": "f=3-5",
+      "model": "SASRec",
+      "n": 940,
+      "HR@1": 0.0,
+      "HR@3": 0.0,
+      "HR@5": 0.0,
+      "HR@10": 0.0,
+      "HR@20": 0.002128,
+      "NDCG@20": 0.000522
+    },
+    {
+      "stratum": "f=3-5",
+      "model": "SFT_full",
+      "n": 940,
+      "HR@1": 0.002128,
+      "HR@3": 0.006383,
+      "HR@5": 0.011702,
+      "HR@10": 0.015957,
+      "HR@20": 0.032979,
+      "NDCG@20": 0.012447
+    },
+    {
+      "stratum": "f=3-5",
+      "model": "GRPO_1.5ep",
+      "n": 940,
+      "HR@1": 0.003191,
+      "HR@3": 0.014894,
+      "HR@5": 0.024468,
+      "HR@10": 0.035106,
+      "HR@20": 0.05,
+      "NDCG@20": 0.020711
+    },
+    {
+      "stratum": "f=3-5",
+      "model": "GRPO_2.0ep",
+      "n": 940,
+      "HR@1": 0.004255,
+      "HR@3": 0.014894,
+      "HR@5": 0.02234,
+      "HR@10": 0.034043,
+      "HR@20": 0.046809,
+      "NDCG@20": 0.020431
+    },
+    {
+      "stratum": "f=3-5",
+      "model": "GRPO_0.25ep_orig",
+      "n": 940,
+      "HR@1": 0.001064,
+      "HR@3": 0.009574,
+      "HR@5": 0.015957,
+      "HR@10": 0.023404,
+      "HR@20": 0.038298,
+      "NDCG@20": 0.014357
+    },
+    {
+      "stratum": "f=3-5",
+      "model": "GRPO_0.25ep_fast",
+      "n": 940,
+      "HR@1": 0.001064,
+      "HR@3": 0.011702,
+      "HR@5": 0.015957,
+      "HR@10": 0.023404,
+      "HR@20": 0.03617,
+      "NDCG@20": 0.014227
+    },
+    {
+      "stratum": "f=3-5",
+      "model": "SFT_preunify",
+      "n": 940,
+      "HR@1": 0.001064,
+      "HR@3": 0.003191,
+      "HR@5": 0.007447,
+      "HR@10": 0.009574,
+      "HR@20": 0.017021,
+      "NDCG@20": 0.006602
+    },
+    {
+      "stratum": "f=6-20",
+      "model": "SASRec",
+      "n": 1630,
+      "HR@1": 0.000613,
+      "HR@3": 0.00184,
+      "HR@5": 0.002454,
+      "HR@10": 0.003067,
+      "HR@20": 0.004908,
+      "NDCG@20": 0.002126
+    },
+    {
+      "stratum": "f=6-20",
+      "model": "SFT_full",
+      "n": 1630,
+      "HR@1": 0.022086,
+      "HR@3": 0.038037,
+      "HR@5": 0.059509,
+      "HR@10": 0.109816,
+      "HR@20": 0.158896,
+      "NDCG@20": 0.068728
+    },
+    {
+      "stratum": "f=6-20",
+      "model": "GRPO_1.5ep",
+      "n": 1630,
+      "HR@1": 0.018405,
+      "HR@3": 0.034969,
+      "HR@5": 0.045399,
+      "HR@10": 0.088957,
+      "HR@20": 0.134356,
+      "NDCG@20": 0.057213
+    },
+    {
+      "stratum": "f=6-20",
+      "model": "GRPO_2.0ep",
+      "n": 1630,
+      "HR@1": 0.018405,
+      "HR@3": 0.034356,
+      "HR@5": 0.047239,
+      "HR@10": 0.085276,
+      "HR@20": 0.141718,
+      "NDCG@20": 0.059126
+    },
+    {
+      "stratum": "f=6-20",
+      "model": "GRPO_0.25ep_orig",
+      "n": 1630,
+      "HR@1": 0.020245,
+      "HR@3": 0.042331,
+      "HR@5": 0.060123,
+      "HR@10": 0.111656,
+      "HR@20": 0.166258,
+      "NDCG@20": 0.070099
+    },
+    {
+      "stratum": "f=6-20",
+      "model": "GRPO_0.25ep_fast",
+      "n": 1630,
+      "HR@1": 0.019018,
+      "HR@3": 0.043558,
+      "HR@5": 0.056442,
+      "HR@10": 0.107362,
+      "HR@20": 0.16135,
+      "NDCG@20": 0.068002
+    },
+    {
+      "stratum": "f=6-20",
+      "model": "SFT_preunify",
+      "n": 1630,
+      "HR@1": 0.009816,
+      "HR@3": 0.026994,
+      "HR@5": 0.039264,
+      "HR@10": 0.069325,
+      "HR@20": 0.12454,
+      "NDCG@20": 0.049028
+    },
+    {
+      "stratum": "f>20",
+      "model": "SASRec",
+      "n": 1284,
+      "HR@1": 0.147975,
+      "HR@3": 0.159657,
+      "HR@5": 0.16433,
+      "HR@10": 0.19081,
+      "HR@20": 0.243769,
+      "NDCG@20": 0.17871
+    },
+    {
+      "stratum": "f>20",
+      "model": "SFT_full",
+      "n": 1284,
+      "HR@1": 0.214953,
+      "HR@3": 0.30296,
+      "HR@5": 0.3419,
+      "HR@10": 0.388629,
+      "HR@20": 0.465732,
+      "NDCG@20": 0.317248
+    },
+    {
+      "stratum": "f>20",
+      "model": "GRPO_1.5ep",
+      "n": 1284,
+      "HR@1": 0.221184,
+      "HR@3": 0.265576,
+      "HR@5": 0.288162,
+      "HR@10": 0.310748,
+      "HR@20": 0.331776,
+      "NDCG@20": 0.269497
+    },
+    {
+      "stratum": "f>20",
+      "model": "GRPO_2.0ep",
+      "n": 1284,
+      "HR@1": 0.219626,
+      "HR@3": 0.267134,
+      "HR@5": 0.285047,
+      "HR@10": 0.307632,
+      "HR@20": 0.327882,
+      "NDCG@20": 0.266863
+    },
+    {
+      "stratum": "f>20",
+      "model": "GRPO_0.25ep_orig",
+      "n": 1284,
+      "HR@1": 0.213396,
+      "HR@3": 0.26947,
+      "HR@5": 0.307632,
+      "HR@10": 0.333333,
+      "HR@20": 0.364486,
+      "NDCG@20": 0.27825
+    },
+    {
+      "stratum": "f>20",
+      "model": "GRPO_0.25ep_fast",
+      "n": 1284,
+      "HR@1": 0.213396,
+      "HR@3": 0.270249,
+      "HR@5": 0.298287,
+      "HR@10": 0.333333,
+      "HR@20": 0.369159,
+      "NDCG@20": 0.278685
+    },
+    {
+      "stratum": "f>20",
+      "model": "SFT_preunify",
+      "n": 1284,
+      "HR@1": 0.133178,
+      "HR@3": 0.213396,
+      "HR@5": 0.264019,
+      "HR@10": 0.312305,
+      "HR@20": 0.369159,
+      "NDCG@20": 0.23106
+    }
+  ],
+  "analysis2_prefix_affinity": [
+    {
+      "depth": 0,
+      "label": "depth=0 (no shared prefix)",
+      "n": 2711,
+      "freq_mean": 28.457,
+      "freq_median": 8.0,
+      "models": {
+        "SASRec": {
+          "HR@1": 0.020288,
+          "HR@3": 0.021025,
+          "HR@5": 0.02287,
+          "HR@10": 0.030247,
+          "HR@20": 0.037624,
+          "NDCG@20": 0.025739
+        },
+        "SFT_full": {
+          "HR@1": 0.002951,
+          "HR@3": 0.018075,
+          "HR@5": 0.023608,
+          "HR@10": 0.033936,
+          "HR@20": 0.048322,
+          "NDCG@20": 0.02105
+        },
+        "GRPO_1.5ep": {
+          "HR@1": 0.002951,
+          "HR@3": 0.008853,
+          "HR@5": 0.011435,
+          "HR@10": 0.013279,
+          "HR@20": 0.015124,
+          "NDCG@20": 0.008507
+        },
+        "GRPO_2.0ep": {
+          "HR@1": 0.002951,
+          "HR@3": 0.009222,
+          "HR@5": 0.010328,
+          "HR@10": 0.01291,
+          "HR@20": 0.01291,
+          "NDCG@20": 0.007874
+        },
+        "GRPO_0.25ep_orig": {
+          "HR@1": 0.003689,
+          "HR@3": 0.015861,
+          "HR@5": 0.019919,
+          "HR@10": 0.024345,
+          "HR@20": 0.030985,
+          "NDCG@20": 0.015717
+        },
+        "GRPO_0.25ep_fast": {
+          "HR@1": 0.003689,
+          "HR@3": 0.015492,
+          "HR@5": 0.019181,
+          "HR@10": 0.023976,
+          "HR@20": 0.030616,
+          "NDCG@20": 0.015368
+        },
+        "SFT_preunify": {
+          "HR@1": 0.001475,
+          "HR@3": 0.004058,
+          "HR@5": 0.005533,
+          "HR@10": 0.012173,
+          "HR@20": 0.022501,
+          "NDCG@20": 0.008382
+        }
+      }
+    },
+    {
+      "depth": 1,
+      "label": "depth=1 (<a_x>)",
+      "n": 1041,
+      "freq_mean": 18.1864,
+      "freq_median": 7.0,
+      "models": {
+        "SASRec": {
+          "HR@1": 0.002882,
+          "HR@3": 0.005764,
+          "HR@5": 0.006724,
+          "HR@10": 0.012488,
+          "HR@20": 0.03074,
+          "NDCG@20": 0.011094
+        },
+        "SFT_full": {
+          "HR@1": 0.01633,
+          "HR@3": 0.041306,
+          "HR@5": 0.057637,
+          "HR@10": 0.084534,
+          "HR@20": 0.153698,
+          "NDCG@20": 0.062532
+        },
+        "GRPO_1.5ep": {
+          "HR@1": 0.014409,
+          "HR@3": 0.025937,
+          "HR@5": 0.037464,
+          "HR@10": 0.049952,
+          "HR@20": 0.084534,
+          "NDCG@20": 0.037983
+        },
+        "GRPO_2.0ep": {
+          "HR@1": 0.013449,
+          "HR@3": 0.026897,
+          "HR@5": 0.034582,
+          "HR@10": 0.051873,
+          "HR@20": 0.087416,
+          "NDCG@20": 0.038775
+        },
+        "GRPO_0.25ep_orig": {
+          "HR@1": 0.007685,
+          "HR@3": 0.026897,
+          "HR@5": 0.045149,
+          "HR@10": 0.06244,
+          "HR@20": 0.115274,
+          "NDCG@20": 0.04459
+        },
+        "GRPO_0.25ep_fast": {
+          "HR@1": 0.010567,
+          "HR@3": 0.029779,
+          "HR@5": 0.041306,
+          "HR@10": 0.068204,
+          "HR@20": 0.120077,
+          "NDCG@20": 0.047614
+        },
+        "SFT_preunify": {
+          "HR@1": 0.008646,
+          "HR@3": 0.032661,
+          "HR@5": 0.052834,
+          "HR@10": 0.084534,
+          "HR@20": 0.146974,
+          "NDCG@20": 0.056726
+        }
+      }
+    },
+    {
+      "depth": 2,
+      "label": "depth=2 (<a_x><b_y>)",
+      "n": 566,
+      "freq_mean": 23.0618,
+      "freq_median": 10.0,
+      "models": {
+        "SASRec": {
+          "HR@1": 0.008834,
+          "HR@3": 0.015901,
+          "HR@5": 0.015901,
+          "HR@10": 0.022968,
+          "HR@20": 0.079505,
+          "NDCG@20": 0.029644
+        },
+        "SFT_full": {
+          "HR@1": 0.15371,
+          "HR@3": 0.279152,
+          "HR@5": 0.379859,
+          "HR@10": 0.540636,
+          "HR@20": 0.701413,
+          "NDCG@20": 0.36277
+        },
+        "GRPO_1.5ep": {
+          "HR@1": 0.173145,
+          "HR@3": 0.291519,
+          "HR@5": 0.353357,
+          "HR@10": 0.530035,
+          "HR@20": 0.694346,
+          "NDCG@20": 0.36519
+        },
+        "GRPO_2.0ep": {
+          "HR@1": 0.171378,
+          "HR@3": 0.287986,
+          "HR@5": 0.355124,
+          "HR@10": 0.508834,
+          "HR@20": 0.704947,
+          "NDCG@20": 0.364273
+        },
+        "GRPO_0.25ep_orig": {
+          "HR@1": 0.160777,
+          "HR@3": 0.259717,
+          "HR@5": 0.35689,
+          "HR@10": 0.533569,
+          "HR@20": 0.674912,
+          "NDCG@20": 0.348382
+        },
+        "GRPO_0.25ep_fast": {
+          "HR@1": 0.15371,
+          "HR@3": 0.266784,
+          "HR@5": 0.342756,
+          "HR@10": 0.515901,
+          "HR@20": 0.662544,
+          "NDCG@20": 0.341238
+        },
+        "SFT_preunify": {
+          "HR@1": 0.077739,
+          "HR@3": 0.174912,
+          "HR@5": 0.279152,
+          "HR@10": 0.379859,
+          "HR@20": 0.517668,
+          "NDCG@20": 0.24499
+        }
+      }
+    },
+    {
+      "depth": 3,
+      "label": "depth=3 (target in history)",
+      "n": 215,
+      "freq_mean": 363.7395,
+      "freq_median": 491.0,
+      "models": {
+        "SASRec": {
+          "HR@1": 0.595349,
+          "HR@3": 0.632558,
+          "HR@5": 0.637209,
+          "HR@10": 0.665116,
+          "HR@20": 0.674419,
+          "NDCG@20": 0.630914
+        },
+        "SFT_full": {
+          "HR@1": 0.939535,
+          "HR@3": 0.967442,
+          "HR@5": 0.976744,
+          "HR@10": 0.981395,
+          "HR@20": 0.981395,
+          "NDCG@20": 0.961886
+        },
+        "GRPO_1.5ep": {
+          "HR@1": 0.925581,
+          "HR@3": 0.95814,
+          "HR@5": 0.972093,
+          "HR@10": 0.981395,
+          "HR@20": 0.981395,
+          "NDCG@20": 0.955053
+        },
+        "GRPO_2.0ep": {
+          "HR@1": 0.930233,
+          "HR@3": 0.95814,
+          "HR@5": 0.967442,
+          "HR@10": 0.981395,
+          "HR@20": 0.981395,
+          "NDCG@20": 0.956627
+        },
+        "GRPO_0.25ep_orig": {
+          "HR@1": 0.925581,
+          "HR@3": 0.981395,
+          "HR@5": 0.986047,
+          "HR@10": 0.990698,
+          "HR@20": 0.990698,
+          "NDCG@20": 0.963847
+        },
+        "GRPO_0.25ep_fast": {
+          "HR@1": 0.92093,
+          "HR@3": 0.981395,
+          "HR@5": 0.981395,
+          "HR@10": 0.981395,
+          "HR@20": 0.986047,
+          "NDCG@20": 0.959661
+        },
+        "SFT_preunify": {
+          "HR@1": 0.609302,
+          "HR@3": 0.827907,
+          "HR@5": 0.851163,
+          "HR@10": 0.874419,
+          "HR@20": 0.883721,
+          "NDCG@20": 0.760854
+        }
+      }
+    }
+  ],
+  "analysis3a_catalogue_collisions": {
+    "catalogue_items": 3686,
+    "unique_sids": 3670,
+    "collision_sid_groups": 15,
+    "items_in_collisions": 31,
+    "collision_rate_item_level": 0.004341,
+    "test_samples_collision_affected": 317,
+    "test_samples_total": 4533
+  },
+  "analysis3b_collision_slices": [
+    {
+      "slice": "all",
+      "n": 4533,
+      "freq_mean": 41.3272,
+      "freq_median": 9.0,
+      "pct_in_f_gt_20": 0.283256,
+      "models": {
+        "SASRec": {
+          "HR@1": 0.042135,
+          "HR@3": 0.045886,
+          "HR@5": 0.04743,
+          "HR@10": 0.055372,
+          "HR@20": 0.071476,
+          "NDCG@20": 0.051567
+        },
+        "SFT_full": {
+          "HR@1": 0.06927,
+          "HR@3": 0.101037,
+          "HR@5": 0.121112,
+          "HR@10": 0.153761,
+          "HR@20": 0.198323,
+          "NDCG@20": 0.117868
+        },
+        "GRPO_1.5ep": {
+          "HR@1": 0.070593,
+          "HR@3": 0.093095,
+          "HR@5": 0.10567,
+          "HR@10": 0.132142,
+          "HR@20": 0.161703,
+          "NDCG@20": 0.104707
+        },
+        "GRPO_2.0ep": {
+          "HR@1": 0.070373,
+          "HR@3": 0.093095,
+          "HR@5": 0.104346,
+          "HR@10": 0.129715,
+          "HR@20": 0.162365,
+          "NDCG@20": 0.104471
+        },
+        "GRPO_0.25ep_orig": {
+          "HR@1": 0.067946,
+          "HR@3": 0.094639,
+          "HR@5": 0.113611,
+          "HR@10": 0.14251,
+          "HR@20": 0.176263,
+          "NDCG@20": 0.108855
+        },
+        "GRPO_0.25ep_fast": {
+          "HR@1": 0.067505,
+          "HR@3": 0.095963,
+          "HR@5": 0.110302,
+          "HR@10": 0.140966,
+          "HR@20": 0.175381,
+          "NDCG@20": 0.10825
+        },
+        "SFT_preunify": {
+          "HR@1": 0.041474,
+          "HR@3": 0.071035,
+          "HR@5": 0.090668,
+          "HR@10": 0.115597,
+          "HR@20": 0.153761,
+          "NDCG@20": 0.084717
+        }
+      }
+    },
+    {
+      "slice": "unique-SID-only",
+      "n": 4216,
+      "freq_mean": 18.5242,
+      "freq_median": 8.0,
+      "pct_in_f_gt_20": 0.23814,
+      "models": {
+        "SASRec": {
+          "HR@1": 0.001186,
+          "HR@3": 0.004507,
+          "HR@5": 0.00593,
+          "HR@10": 0.014231,
+          "HR@20": 0.031309,
+          "NDCG@20": 0.010706
+        },
+        "SFT_full": {
+          "HR@1": 0.033444,
+          "HR@3": 0.054554,
+          "HR@5": 0.072818,
+          "HR@10": 0.106262,
+          "HR@20": 0.152751,
+          "NDCG@20": 0.075655
+        },
+        "GRPO_1.5ep": {
+          "HR@1": 0.032021,
+          "HR@3": 0.051471,
+          "HR@5": 0.063805,
+          "HR@10": 0.091082,
+          "HR@20": 0.121442,
+          "NDCG@20": 0.064811
+        },
+        "GRPO_2.0ep": {
+          "HR@1": 0.032732,
+          "HR@3": 0.051471,
+          "HR@5": 0.062144,
+          "HR@10": 0.08871,
+          "HR@20": 0.122865,
+          "NDCG@20": 0.065053
+        },
+        "GRPO_0.25ep_orig": {
+          "HR@1": 0.032021,
+          "HR@3": 0.051945,
+          "HR@5": 0.067362,
+          "HR@10": 0.095588,
+          "HR@20": 0.131404,
+          "NDCG@20": 0.067768
+        },
+        "GRPO_0.25ep_fast": {
+          "HR@1": 0.031309,
+          "HR@3": 0.053131,
+          "HR@5": 0.063093,
+          "HR@10": 0.094165,
+          "HR@20": 0.129744,
+          "NDCG@20": 0.06672
+        },
+        "SFT_preunify": {
+          "HR@1": 0.018027,
+          "HR@3": 0.039137,
+          "HR@5": 0.053368,
+          "HR@10": 0.076613,
+          "HR@20": 0.114801,
+          "NDCG@20": 0.05337
+        }
+      }
+    },
+    {
+      "slice": "collision-affected",
+      "n": 317,
+      "freq_mean": 344.5994,
+      "freq_median": 491.0,
+      "pct_in_f_gt_20": 0.883281,
+      "models": {
+        "SASRec": {
+          "HR@1": 0.586751,
+          "HR@3": 0.596215,
+          "HR@5": 0.599369,
+          "HR@10": 0.602524,
+          "HR@20": 0.605678,
+          "NDCG@20": 0.594996
+        },
+        "SFT_full": {
+          "HR@1": 0.545741,
+          "HR@3": 0.719243,
+          "HR@5": 0.763407,
+          "HR@10": 0.785489,
+          "HR@20": 0.804416,
+          "NDCG@20": 0.679288
+        },
+        "GRPO_1.5ep": {
+          "HR@1": 0.583596,
+          "HR@3": 0.646688,
+          "HR@5": 0.662461,
+          "HR@10": 0.678233,
+          "HR@20": 0.697161,
+          "NDCG@20": 0.635313
+        },
+        "GRPO_2.0ep": {
+          "HR@1": 0.570978,
+          "HR@3": 0.646688,
+          "HR@5": 0.665615,
+          "HR@10": 0.675079,
+          "HR@20": 0.687697,
+          "NDCG@20": 0.628714
+        },
+        "GRPO_0.25ep_orig": {
+          "HR@1": 0.545741,
+          "HR@3": 0.662461,
+          "HR@5": 0.728707,
+          "HR@10": 0.766562,
+          "HR@20": 0.772871,
+          "NDCG@20": 0.655295
+        },
+        "GRPO_0.25ep_fast": {
+          "HR@1": 0.548896,
+          "HR@3": 0.665615,
+          "HR@5": 0.73817,
+          "HR@10": 0.763407,
+          "HR@20": 0.782334,
+          "NDCG@20": 0.660582
+        },
+        "SFT_preunify": {
+          "HR@1": 0.353312,
+          "HR@3": 0.495268,
+          "HR@5": 0.586751,
+          "HR@10": 0.634069,
+          "HR@20": 0.671924,
+          "NDCG@20": 0.501623
+        }
+      }
+    }
+  ],
+  "problems": []
+}

@@ -1,0 +1,4 @@
+# Shell scripts must stay LF: the preflight scripts assert "CRLF => FAIL", and
+# the formal entrypoints run on Linux. Without this, a clone with
+# core.autocrlf=true would check them out as CRLF.
+*.sh text eol=lf

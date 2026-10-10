@@ -1,0 +1,273 @@
+{
+  "checks": [
+    {
+      "check": "artefact exists",
+      "pass": true,
+      "detail": "/root/autodl-tmp/runs/eval_shuffled_sid/test_beam20.json (4,746,857 bytes)"
+    },
+    {
+      "check": "4533 samples",
+      "pass": true,
+      "detail": "4533"
+    },
+    {
+      "check": "schema keys == ['input','output','predict']",
+      "pass": true,
+      "detail": "['input', 'output', 'predict']"
+    },
+    {
+      "check": "exactly 20 predictions per sample",
+      "pass": true,
+      "detail": "observed [20]"
+    },
+    {
+      "check": "HR grid matches to <1e-8",
+      "pass": true,
+      "detail": "max |diff| = 0.000e+00"
+    },
+    {
+      "check": "NDCG grid matches to <1e-8",
+      "pass": true,
+      "detail": "max |diff| = 0.000e+00"
+    },
+    {
+      "check": "HR@20 < 1e-8",
+      "pass": true,
+      "detail": "|diff| = 0.000e+00"
+    },
+    {
+      "check": "NDCG@20 < 1e-8",
+      "pass": true,
+      "detail": "|diff| = 0.000e+00"
+    },
+    {
+      "check": "original and shuffled legal SID sets identical",
+      "pass": true,
+      "detail": "3670 vs 3670"
+    },
+    {
+      "check": "LegalRate@20 == 100% (vs ORIGINAL catalogue SIDs)",
+      "pass": true,
+      "detail": "90660/90660 = 100.0000%"
+    },
+    {
+      "check": "LegalRate@20 == 100% (vs SHUFFLED catalogue SIDs)",
+      "pass": true,
+      "detail": "90660/90660 = 100.0000%"
+    },
+    {
+      "check": "DuplicateRate@20 == 0",
+      "pass": true,
+      "detail": "0.0000%  (0/4533 samples with a repeat)"
+    },
+    {
+      "check": "unique SIDs per sample == 20 for all rows",
+      "pass": true,
+      "detail": "min=20 max=20 mean=20.0000"
+    },
+    {
+      "check": "sample['output'] == shuffled test.csv item_sid for every row",
+      "pass": true,
+      "detail": "4533/4533"
+    },
+    {
+      "check": "all history SIDs in the prompt are shuffled-catalogue SIDs",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "the prompt/target actually changed vs clean (intervention live)",
+      "pass": true,
+      "detail": "identical input rows=54, identical output rows=317"
+    },
+    {
+      "check": "clean artefact still reproduces its official HR@20",
+      "pass": true,
+      "detail": "0.198323410000 vs 0.19832341"
+    },
+    {
+      "check": "clean artefact still reproduces its official NDCG@20",
+      "pass": true,
+      "detail": "0.117867980000 vs 0.11786798"
+    }
+  ],
+  "problems": [],
+  "grid": [
+    {
+      "k": 1,
+      "HR": 0.06132804,
+      "NDCG": 0.06132804,
+      "expected_HR": 0.06132804,
+      "expected_NDCG": 0.06132804,
+      "abs_diff_HR": 0.0,
+      "abs_diff_NDCG": 0.0
+    },
+    {
+      "k": 3,
+      "HR": 0.08140304,
+      "NDCG": 0.07315633,
+      "expected_HR": 0.08140304,
+      "expected_NDCG": 0.07315633,
+      "abs_diff_HR": 0.0,
+      "abs_diff_NDCG": 0.0
+    },
+    {
+      "k": 5,
+      "HR": 0.08824178,
+      "NDCG": 0.07599527,
+      "expected_HR": 0.08824178,
+      "expected_NDCG": 0.07599527,
+      "abs_diff_HR": 0.0,
+      "abs_diff_NDCG": 0.0
+    },
+    {
+      "k": 10,
+      "HR": 0.09816898,
+      "NDCG": 0.07921379,
+      "expected_HR": 0.09816898,
+      "expected_NDCG": 0.07921379,
+      "abs_diff_HR": 0.0,
+      "abs_diff_NDCG": 0.0
+    },
+    {
+      "k": 20,
+      "HR": 0.10765497,
+      "NDCG": 0.08157358,
+      "expected_HR": 0.10765497,
+      "expected_NDCG": 0.08157358,
+      "abs_diff_HR": 0.0,
+      "abs_diff_NDCG": 0.0
+    }
+  ],
+  "intervention_effective": {
+    "rows_with_identical_input": 54,
+    "rows_with_identical_output": 317,
+    "rows": 4533
+  },
+  "artefact": "/root/autodl-tmp/runs/eval_shuffled_sid/test_beam20.json",
+  "n_samples": 4533,
+  "predictions_per_sample": 20,
+  "metrics": {
+    "K": [
+      1,
+      3,
+      5,
+      10,
+      20
+    ],
+    "HR": [
+      0.06132804,
+      0.08140304,
+      0.08824178,
+      0.09816898,
+      0.10765497
+    ],
+    "NDCG": [
+      0.06132804,
+      0.07315633,
+      0.07599527,
+      0.07921379,
+      0.08157358
+    ]
+  },
+  "expected": {
+    "HR": [
+      0.06132804,
+      0.08140304,
+      0.08824178,
+      0.09816898,
+      0.10765497
+    ],
+    "NDCG": [
+      0.06132804,
+      0.07315633,
+      0.07599527,
+      0.07921379,
+      0.08157358
+    ]
+  },
+  "legality": {
+    "legal_rate_vs_original": 1.0,
+    "legal_rate_vs_shuffled": 1.0,
+    "duplicate_rate": 0.0,
+    "unique_per_sample": {
+      "min": 20,
+      "max": 20,
+      "mean": 20.0
+    }
+  },
+  "clean_vs_shuffled": [
+    {
+      "K": 1,
+      "clean_HR": 0.0692698,
+      "shuffled_HR": 0.06132804,
+      "abs_delta_HR": -0.007941760000000006,
+      "rel_delta_HR_pct": -11.464967417258322,
+      "clean_NDCG": 0.0692698,
+      "shuffled_NDCG": 0.06132804,
+      "abs_delta_NDCG": -0.007941760000000006,
+      "rel_delta_NDCG_pct": -11.464967417258322
+    },
+    {
+      "K": 3,
+      "clean_HR": 0.10103684,
+      "shuffled_HR": 0.08140304,
+      "abs_delta_HR": -0.019633800000000007,
+      "rel_delta_HR_pct": -19.432317954520357,
+      "clean_NDCG": 0.08789727,
+      "shuffled_NDCG": 0.07315633,
+      "abs_delta_NDCG": -0.014740939999999994,
+      "rel_delta_NDCG_pct": -16.770646005274102
+    },
+    {
+      "K": 5,
+      "clean_HR": 0.12111185,
+      "shuffled_HR": 0.08824178,
+      "abs_delta_HR": -0.03287006999999999,
+      "rel_delta_HR_pct": -27.140259190161814,
+      "clean_NDCG": 0.09613706,
+      "shuffled_NDCG": 0.07599527,
+      "abs_delta_NDCG": -0.020141789999999993,
+      "rel_delta_NDCG_pct": -20.95111916257892
+    },
+    {
+      "K": 10,
+      "clean_HR": 0.15376131,
+      "shuffled_HR": 0.09816898,
+      "abs_delta_HR": -0.05559233000000001,
+      "rel_delta_HR_pct": -36.15495341448379,
+      "clean_NDCG": 0.10663781,
+      "shuffled_NDCG": 0.07921379,
+      "abs_delta_NDCG": -0.027424019999999993,
+      "rel_delta_NDCG_pct": -25.716975995662324
+    },
+    {
+      "K": 20,
+      "clean_HR": 0.19832341,
+      "shuffled_HR": 0.10765497,
+      "abs_delta_HR": -0.09066844,
+      "rel_delta_HR_pct": -45.71746724201646,
+      "clean_NDCG": 0.11786798,
+      "shuffled_NDCG": 0.08157358,
+      "abs_delta_NDCG": -0.03629439999999999,
+      "rel_delta_NDCG_pct": -30.79241707544321
+    }
+  ],
+  "training_provenance_caveat": {
+    "run": "/root/autodl-tmp/runs/industrial_sft_shuffled_sid",
+    "completed_steps": 2496,
+    "interrupted_after_step": 2180,
+    "resumed_from": "checkpoint-2125",
+    "retrained_steps": "2125-2180",
+    "resume_log": "/root/autodl-tmp/runs/industrial_sft_shuffled_sid/resume_from_2125.log",
+    "train_loss_reported_by_resume_segment": 0.060042200884662375,
+    "train_loss_all_step_mean": 0.802715,
+    "clean_sft_train_loss_all_step_mean": 0.7712313783569977,
+    "warning": "The 0.0600 train_loss printed by the resume segment is a RESUMED-SEGMENT statistic, not the full-training loss. Use the all-step mean 0.8027 for any comparison with clean SFT (0.7712). Because steps 2125-2180 were retrained, the two arms do NOT share a bit-identical optimisation trajectory; the final LR reconverged to the identical value 1.21163166e-07 and the loss trajectory is continuous across the resume."
+  },
+  "summary": {
+    "checks": 18,
+    "failed": 0,
+    "problems": 0
+  }
+}

@@ -1,0 +1,54 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Local experiment tracking
+wandb/
+
+# Generated validation report
+tests/grpo_preflight_report.txt
+
+# Editor / OS noise
+.DS_Store
+.vscode/
+.idea/
+
+# Generated strict shuffled-SID intervention data.
+# Rebuild deterministically with analysis/build_shuffled_sid_strict.py.
+analysis/shuffled_sid/
+
+# Generated consistency-audit info; formal eval uses the original info file.
+data/Amazon/info/*_shuffled.info.txt
+
+# Local environment overrides
+.env
+.env.*
+!.env.example
+
+# ---------------------------------------------------------------------------
+# LETTER-SID work (Stage 1/2). Binary artifacts and training runs are NOT
+# tracked: they are large, machine-produced, and reproducible from the scripts
+# under tools/letter_stage1/ and rq/letter/. Only the *scripts* are versioned.
+# ---------------------------------------------------------------------------
+artifacts/
+runs/
+
+# ---------------------------------------------------------------------------
+# Vendored upstream LETTER tokenizer sources.
+#
+# Deliberately NOT tracked: https://github.com/HonghuiBao2000/LETTER declares no
+# license (no LICENSE/COPYING/NOTICE file; GitHub reports license: None), so its
+# source may not be redistributed here. rq/letter/ is a locally fetched
+# dependency. Rebuild and hash-verify it with:
+#     python tools/fetch_letter_upstream.py
+# The per-file lineage (upstream sha256 + applied local edits) is tracked as
+# rq/letter/UPSTREAM_MANIFEST.json, which this negation keeps visible.
+# ---------------------------------------------------------------------------
+rq/letter/*
+!rq/letter/UPSTREAM_MANIFEST.json
+
+# [R2] offline route cache (1.5 MB generated artifact; rebuild with rl_router.py)
+splits/r21_route_cache.json
+
+# [R2] throwaway comparison launchers used during the R2.2 validation run
+patches/_tmp_eval_*.sh

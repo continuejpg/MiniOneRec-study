@@ -1,0 +1,31 @@
+{
+  "seed": 42,
+  "category": "Industrial_and_Scientific",
+  "created_from": {
+    "train_file": "data/Amazon/train/Industrial_and_Scientific_5_2016-10-2018-11.csv",
+    "index_file": "data/Amazon/index/Industrial_and_Scientific.index.json",
+    "item_file": "data/Amazon/index/Industrial_and_Scientific.item.json"
+  },
+  "tasks": {
+    "seq_rec": {
+      "dataset": "SidDataset",
+      "requested_sample": 10000,
+      "actual": 10000,
+      "subset_file": "grpo_seq_10k.json"
+    },
+    "title2sid": {
+      "dataset": "RLTitle2SidDataset",
+      "requested_sample": -1,
+      "actual": 6516,
+      "subset_file": null,
+      "note": "full, fixed"
+    },
+    "seqtitle2sid": {
+      "dataset": "RLSeqTitle2SidDataset",
+      "requested_sample": 1000,
+      "actual": 1000,
+      "subset_file": "grpo_seqtitle_1k.json"
+    }
+  },
+  "total_samples": 17516
+}

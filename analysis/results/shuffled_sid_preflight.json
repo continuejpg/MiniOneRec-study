@@ -1,0 +1,279 @@
+{
+  "seed": 42,
+  "scheme": "strict: collision items frozen, singletons permuted",
+  "checks": [
+    {
+      "check": "item count unchanged",
+      "pass": true,
+      "detail": "3686"
+    },
+    {
+      "check": "item identity set unchanged",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "exact SID SET identical",
+      "pass": true,
+      "detail": "|orig|=3670 |new|=3670 |sym diff|=0"
+    },
+    {
+      "check": "exact SID MULTISET identical (per-string multiplicity)",
+      "pass": true,
+      "detail": "distinct=3670; differing keys=0"
+    },
+    {
+      "check": "15 collision groups with identical item membership",
+      "pass": true,
+      "detail": "15 groups identical=True"
+    },
+    {
+      "check": "exact trie structure at depth 1 identical",
+      "pass": true,
+      "detail": "|prefixes|=48"
+    },
+    {
+      "check": "exact trie structure at depth 2 identical",
+      "pass": true,
+      "detail": "|prefixes|=2295"
+    },
+    {
+      "check": "exact trie structure at depth 3 identical",
+      "pass": true,
+      "detail": "|prefixes|=3670"
+    },
+    {
+      "check": "SID token vocabulary identical",
+      "pass": true,
+      "detail": "560 tokens"
+    },
+    {
+      "check": "train: row count unchanged",
+      "pass": true,
+      "detail": "36259"
+    },
+    {
+      "check": "train: user_id/item_id/item_title/history_item_id unchanged",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "valid: row count unchanged",
+      "pass": true,
+      "detail": "4532"
+    },
+    {
+      "check": "valid: user_id/item_id/item_title/history_item_id unchanged",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "test: row count unchanged",
+      "pass": true,
+      "detail": "4533"
+    },
+    {
+      "check": "test: user_id/item_id/item_title/history_item_id unchanged",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "all CSV history/target SIDs consistent with the new mapping",
+      "pass": true,
+      "detail": "target mismatches=0 history mismatches=0"
+    },
+    {
+      "check": "singleton fixed points = 0",
+      "pass": true,
+      "detail": "0/3655"
+    },
+    {
+      "check": "only the 31 collision items keep their original SID",
+      "pass": true,
+      "detail": "0 collision items changed (expected 0)"
+    }
+  ],
+  "problems": [],
+  "n_items": 3686,
+  "n_singletons": 3655,
+  "n_collision_items": 31,
+  "n_collision_sids": 15,
+  "frozen_collision_items": [
+    7,
+    8,
+    139,
+    181,
+    182,
+    216,
+    217,
+    322,
+    431,
+    774,
+    1006,
+    1249,
+    1250,
+    1382,
+    1787,
+    1788,
+    1955,
+    2100,
+    2659,
+    2831,
+    2956,
+    2957,
+    3038,
+    3112,
+    3209,
+    3210,
+    3302,
+    3459,
+    3493,
+    3557,
+    3631
+  ],
+  "singleton_fixed_points": 0,
+  "collision_items_changed": 0,
+  "per_bucket": [
+    {
+      "bucket": "f=0",
+      "n_singletons": 50,
+      "distinctive_sids": 50,
+      "repairs": 3,
+      "fixed_points": 0
+    },
+    {
+      "bucket": "f=1",
+      "n_singletons": 93,
+      "distinctive_sids": 93,
+      "repairs": 0,
+      "fixed_points": 0
+    },
+    {
+      "bucket": "f=2",
+      "n_singletons": 194,
+      "distinctive_sids": 194,
+      "repairs": 3,
+      "fixed_points": 0
+    },
+    {
+      "bucket": "f=3-5",
+      "n_singletons": 1341,
+      "distinctive_sids": 1341,
+      "repairs": 0,
+      "fixed_points": 0
+    },
+    {
+      "bucket": "f=6-20",
+      "n_singletons": 1685,
+      "distinctive_sids": 1685,
+      "repairs": 2,
+      "fixed_points": 0
+    },
+    {
+      "bucket": "f=>20",
+      "n_singletons": 292,
+      "distinctive_sids": 292,
+      "repairs": 1,
+      "fixed_points": 0
+    }
+  ],
+  "intervention_strength": {
+    "exact-SID retention [all items]": 0.008410200759631037,
+    "exact-SID retention [singleton items only]": 0.0,
+    "prefix-1 retention (self) [all items]": 0.032284319045035266,
+    "prefix-1 retention (self) [singleton items]": 0.024076607387140903,
+    "prefix-2 retention (self) [all items]": 0.008952794357026587,
+    "prefix-2 retention (self) [singleton items]": 0.0005471956224350205,
+    "pair prefix-1 share rate BEFORE [all items]": 0.027748693026751998,
+    "pair prefix-1 share rate AFTER  [all items]": 0.027748693026751998,
+    "pair prefix-1 RETENTION [all items]": 1.0,
+    "pair prefix-1 share rate BEFORE [singleton items]": 0.027666623987205145,
+    "pair prefix-1 share rate AFTER  [singleton items]": 0.027666623987205145,
+    "pair prefix-1 RETENTION [singleton items]": 1.0,
+    "pair prefix-2 share rate BEFORE [all items]": 0.0006201911077964884,
+    "pair prefix-2 share rate AFTER  [all items]": 0.0006201911077964884,
+    "pair prefix-2 RETENTION [all items]": 1.0,
+    "pair prefix-2 share rate BEFORE [singleton items]": 0.0006058986010870534,
+    "pair prefix-2 share rate AFTER  [singleton items]": 0.0006058986010870534,
+    "pair prefix-2 RETENTION [singleton items]": 1.0
+  },
+  "outputs": {
+    "index": "/root/autodl-tmp/code/analysis/shuffled_sid/Industrial_and_Scientific.index.json",
+    "train": "/root/autodl-tmp/code/analysis/shuffled_sid/train.csv",
+    "valid": "/root/autodl-tmp/code/analysis/shuffled_sid/valid.csv",
+    "test": "/root/autodl-tmp/code/analysis/shuffled_sid/test.csv",
+    "mapping": "/root/autodl-tmp/code/analysis/shuffled_sid/mapping.json"
+  },
+  "token_extender_note": "TokenExtender (sft.py:31-39) rebuilds the index filename as basename(sid_index_path).split('.')[0] + '.index.json'. The index file is therefore named 'Industrial_and_Scientific.index.json' so the rebuild resolves to itself. data.py opens --sid_index_path directly and is unaffected.",
+  "summary": {
+    "checks": 18,
+    "failed": 0,
+    "problems": 0
+  },
+  "pair_identity_retention": {
+    "definition": "unordered item pairs whose SIDs share a token prefix of length d; BEFORE from the original mapping, AFTER from the shuffled mapping; retention = |B\u2229A|/|B|, jaccard = |B\u2229A|/|B\u222aA|",
+    "supersedes": "the earlier 'pair prefix-d RETENTION' entries in intervention_strength, which were |after|/|before| over prefix-group pair counts and were identically 100% by construction; they measure group-size preservation, NOT pair identity",
+    "results": {
+      "depth1_all": {
+        "depth": 1,
+        "item_set": "all",
+        "n_items": 3686,
+        "BEFORE_pairs": 188454,
+        "AFTER_pairs": 188454,
+        "intersection": 5306,
+        "union": 371602,
+        "retention": 0.028155,
+        "jaccard": 0.014279,
+        "n_removed": 183148,
+        "n_added": 183148
+      },
+      "depth1_singleton": {
+        "depth": 1,
+        "item_set": "singleton",
+        "n_items": 3655,
+        "BEFORE_pairs": 184749,
+        "AFTER_pairs": 184749,
+        "intersection": 5097,
+        "union": 364401,
+        "retention": 0.027589,
+        "jaccard": 0.013987,
+        "n_removed": 179652,
+        "n_added": 179652
+      },
+      "depth2_all": {
+        "depth": 2,
+        "item_set": "all",
+        "n_items": 3686,
+        "BEFORE_pairs": 4212,
+        "AFTER_pairs": 4212,
+        "intersection": 29,
+        "union": 8395,
+        "retention": 0.006885,
+        "jaccard": 0.003454,
+        "n_removed": 4183,
+        "n_added": 4183
+      },
+      "depth2_singleton": {
+        "depth": 2,
+        "item_set": "singleton",
+        "n_items": 3655,
+        "BEFORE_pairs": 4046,
+        "AFTER_pairs": 4046,
+        "intersection": 2,
+        "union": 8090,
+        "retention": 0.000494,
+        "jaccard": 0.000247,
+        "n_removed": 4044,
+        "n_added": 4044
+      }
+    }
+  },
+  "intervention_strength_corrected": {
+    "exact_SID_retention_all_items": 0.00841,
+    "exact_SID_retention_singleton_items": 0.0,
+    "prefix1_self_retention_all": 0.032284,
+    "prefix1_self_retention_singleton": 0.024077,
+    "prefix2_self_retention_all": 0.008953,
+    "prefix2_self_retention_singleton": 0.000547
+  }
+}

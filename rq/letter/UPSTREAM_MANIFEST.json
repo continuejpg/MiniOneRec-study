@@ -1,0 +1,68 @@
+{
+  "upstream_repo": "https://github.com/HonghuiBao2000/LETTER",
+  "branch": "master",
+  "commit": "8d0154e28de37dbb6e24871c508ad8ddb1921cda",
+  "files": {
+    "RQ-VAE/main.py": {
+      "bytes": 4473,
+      "sha256": "0a4037f3ef31e5df5f3e91bd27150cea531dfdfc5fcd88557824e7d64d05f2a2",
+      "git_blob_sha": "c17b70179d977f706649393a832605e48416db16"
+    },
+    "RQ-VAE/trainer.py": {
+      "bytes": 10761,
+      "sha256": "e9554af6530187376e1dfed9b3462e9817552fe53a7c326b8e5e2fe31451fea2",
+      "git_blob_sha": "e26876e213f60a7db4b5e2811fc13889eb59d3fc"
+    },
+    "RQ-VAE/datasets.py": {
+      "bytes": 553,
+      "sha256": "82fc717dd2650b748b5fc942757b8bfad56958a6808a9344bd4442272c54d66b",
+      "git_blob_sha": "96b5cf18a093207435487ebe922c1ee4b99a838e"
+    },
+    "RQ-VAE/utils.py": {
+      "bytes": 688,
+      "sha256": "c362cfe5ef615b54ba5c400e38161780ad726dc8a501f3e60e97c765f3c95776",
+      "git_blob_sha": "15464c7a6d1a975e26fdc6b0430d24edf0722596"
+    },
+    "RQ-VAE/models/rqvae.py": {
+      "bytes": 3896,
+      "sha256": "797b61e5c9037b8649d90c746f41f51bd60c0c922b46d7233374e4da65f45c00",
+      "git_blob_sha": "a91c1cc7f875ecfc21364c30077c7127cf28c6d5"
+    },
+    "RQ-VAE/models/rq.py": {
+      "bytes": 2145,
+      "sha256": "67dc71c5e227889bfe06c70a7f516e70770b480f7a8e6b519023c7ffdc4bd363",
+      "git_blob_sha": "063d9ea93678acd39de0a9bdbbe5e428cb2b93ec"
+    },
+    "RQ-VAE/models/vq.py": {
+      "bytes": 7333,
+      "sha256": "ebb0d92623abc38a3cd4952255e2d8ded098ac1472f13a62e234591040010516",
+      "git_blob_sha": "5417e3023ca990be9fe13c2645df40054e3b6803"
+    },
+    "RQ-VAE/models/layers.py": {
+      "bytes": 3441,
+      "sha256": "fa91c96d5dea456f09e2d872f62d9063a50111d0beba167994a27754b9090536",
+      "git_blob_sha": "19954e6d4560e432d90cabebf219924761743d43"
+    },
+    "RQ-VAE/generate_indices.py": {
+      "bytes": 6108,
+      "sha256": "45ff8ec25a6b9aa0f10e9a79d3d59a689db1cdcf74b8d7bef0423b2267e0f693",
+      "git_blob_sha": "f275972e0c8cb882ce8cfc974591a63ea00dc4e2"
+    },
+    "RQ-VAE/train_tokenizer.sh": {
+      "bytes": 224,
+      "sha256": "3bc3bd82f5dea5e4355655e30073fda316c087a9de4caa71ffe1aa1ac39b439f",
+      "git_blob_sha": "f8f5055444a35f35fbcc6dab82220881c27eacc5"
+    },
+    "RQ-VAE/tokenize.sh": {
+      "bytes": 172,
+      "sha256": "5d11aefa0953fd016ecb4333e52e4b86072fca16115ddd86b441051d09bfe81f",
+      "git_blob_sha": "99af4e6bd73025c8c5886625ea710c63bc8b9c48"
+    },
+    "README.md": {
+      "bytes": 1659,
+      "sha256": "834fffa47b99d5bcacb4223c68b51fc696050754bac90f798b5294f335dc1b7a",
+      "git_blob_sha": "1ac2190a4164a908dccfa9b1d9248c24a7c8e718"
+    }
+  },
+  "n_files": 12
+}
