@@ -1,0 +1,109 @@
+# Remote training environment (AutoDL) — captured by Phase 5B
+# This is the environment that produced EVERY SFT and evaluation result.
+
+## container
+hostname: <redacted-container-id>
+nproc: 128
+ram_gib: 1007
+
+## git
+HEAD: 61ad0c8fc184fbc2fe9043cb4a00f3fb77bd2529
+branch: freeze/v1-docs-and-rl
+commit_count: 20
+tracked_modifications: 0
+
+## python stack
+python 3.10.8
+torch 2.6.0+cu118
+transformers 4.57.1
+datasets 4.2.0
+bitsandbytes 0.48.1
+accelerate 1.10.1
+peft MISSING
+sentencepiece 0.2.2
+tensorboard 2.11.2
+pandas 2.2.2
+numpy 2.2.6
+torch.cuda 11.8
+cuda_available True
+
+## gpu / driver
+NVIDIA GeForce RTX 4090, 24564 MiB, 595.71.05
+
+## environment variables required to reproduce
+PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python   # tensorboard 2.11.2 vs protobuf 6.33.6
+HF_HOME=/root/autodl-tmp/hf_home
+HF_DATASETS_CACHE=/root/autodl-tmp/hf_home/datasets
+WANDB_MODE=disabled
+
+## frozen source sha256 (FULL)
+03cdea6d757380c8a9a1caec16b392cac2f0a53a3117d3e4257a04ba45b3e4be  sft.py
+ef02a7cb8715768a64e49b8be1f57ed11f66c42ee8b6724b0a2176ad4f81fe55  data.py
+d68af11fa4efb9547de6f6f83acff8f8b68f6af8b608498fceb4eea6c3c8c889  evaluate.py
+95a77747b797e755472d3be34d14071e7b89eec17c08edce686b81735fde06a7  calc.py
+789808bad88780e4a11c83a0f1fc2fa997004af761fff0471b7937782b5b21a4  LogitProcessor.py
+000ed72a0d96a5c618317f8bd14e0c59db48851550df3e08f9058082255355f1  sid_utils.py
+e7a771e58256bb396933fb35401e9e9f7c9fc73c6aad6d5b5ce8d2acd496284a  split.py
+fc0b5e1751912f99c0bd046ff583a8ca3562b058a08bd6e212db8f9f3b2155ac  merge.py
+
+## pip freeze (top-level, for reference)
+absl-py==2.5.0
+accelerate==1.10.1
+aiohappyeyeballs==2.7.1
+aiohttp==3.14.3
+aiosignal==1.4.0
+annotated-types==0.8.0
+anyio==3.6.2
+argon2-cffi==21.3.0
+argon2-cffi-bindings==21.2.0
+arrow==1.2.3
+asttokens==2.2.1
+async-timeout==5.0.1
+attrs==22.2.0
+Babel==2.11.0
+backcall==0.2.0
+beautifulsoup4==4.11.1
+bitsandbytes==0.48.1
+bleach==6.0.0
+brotlipy==0.7.0
+cachetools==5.3.0
+certifi==2026.7.22
+cffi==2.1.1
+charset-normalizer @ file:///tmp/build/80754af9/charset-normalizer_1630003229654/work
+click==8.5.0
+cloudpickle==3.1.2
+comm==0.1.2
+conda==22.11.1
+conda-content-trust @ file:///tmp/abs_5952f1c8-355c-4855-ad2e-538535021ba5h26t22e5/croots/recipe/conda-content-trust_1658126371814/work
+conda-package-handling @ file:///croot/conda-package-handling_1666940373510/work
+contourpy==1.0.7
+cryptography==50.0.2
+cycler==0.11.0
+datasets==4.2.0
+debugpy==1.6.6
+decorator==5.1.1
+defusedxml==0.7.1
+dill==0.4.0
+executing==1.2.0
+fastjsonschema==2.16.2
+filelock==4.0.9
+fire==0.7.1
+fonttools==4.38.0
+fqdn==1.5.1
+frozenlist==1.8.0
+fsspec==2025.9.0
+gitdb==4.0.12
+GitPython==3.2.0
+google-auth==2.16.0
+google-auth-oauthlib==0.4.6
+grpcio==1.51.1
+h11==0.16.0
+hf-xet==1.6.0
+httpcore==1.0.9
+httpx==0.28.1
+huggingface_hub==0.36.2
+idna @ file:///croot/idna_1666125576474/work
+immutabledict==4.3.1
+ipykernel==6.20.2
+ipython==8.9.0
+ipython-genutils==0.2.0

@@ -1,0 +1,196 @@
+{
+ "phase": "5A",
+ "generated_by": "Phase 5A archival script",
+ "environments": {
+  "local_fork": {
+   "role": "authoring / analysis fork; NO training happens here",
+   "path": "D:\\IT\\CODE\\PYTHON\\project1\\MiniOneRec",
+   "head": "7892d6bdb3856491d9b3c435af10447bbda0a60f",
+   "branch": "main",
+   "commit_count": "188",
+   "tracked_modifications": [
+    "M README.md"
+   ],
+   "python": "3.10.19 (D:\\IT\\CONDA\\envs\\SV2)",
+   "torch": "2.10.0.dev20251213+cu128",
+   "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU, 8151 MiB",
+   "cuda_available": true
+  },
+  "remote_training": {
+   "role": "CANONICAL TRAINING ENVIRONMENT for every B0/B2/S0/S1/S2/C0/C1 result",
+   "host": "REDACTED (host withheld from public release)",
+   "ssh_port": "REDACTED (ssh_port withheld from public release)",
+   "container": "REDACTED (container withheld from public release)",
+   "path": "/root/autodl-tmp/code",
+   "head": "61ad0c8fc184fbc2fe9043cb4a00f3fb77bd2529",
+   "branch": "freeze/v1-docs-and-rl",
+   "dirty_tracked": "0 entries (only new untracked experiment files were added)",
+   "python": "3.10.8 (/root/miniconda3)",
+   "torch": "2.6.0+cu118",
+   "cuda": "11.8",
+   "gpu": "NVIDIA GeForce RTX 4090, 24564 MiB",
+   "nproc": 128,
+   "ram_gib": 1007
+  }
+ },
+ "frozen_training_sources": {
+  "remote_sha256_16": {
+   "sft.py": "03cdea6d757380c8",
+   "data.py": "ef02a7cb8715768a",
+   "evaluate.py": "d68af11fa4efb954",
+   "calc.py": "95a77747b797e755",
+   "LogitProcessor.py": "789808bad88780e4",
+   "sid_utils.py": "000ed72a0d96a5c6",
+   "split.py": "e7a771e58256bb39",
+   "merge.py": "fc0b5e1751912f99"
+  },
+  "local_sha256_16": {
+   "sft.py": "fb348e942383c8aa",
+   "data.py": "ebcb5280a5456f5d",
+   "evaluate.py": "53f0190ddf77d652",
+   "calc.py": "95a77747b797e755",
+   "LogitProcessor.py": "5f64d4790e75186b",
+   "split.py": "e7a771e58256bb39",
+   "merge.py": "fc0b5e1751912f99"
+  },
+  "divergence": {
+   "warning": "The local fork and the remote training repo are NOT the same code. Quoting only one commit hash would overstate reproducibility.",
+   "identical": [
+    "calc.py",
+    "merge.py",
+    "split.py"
+   ],
+   "divergent": [
+    "LogitProcessor.py",
+    "data.py",
+    "evaluate.py",
+    "sft.py"
+   ],
+   "remote_only": [
+    "sid_utils.py"
+   ],
+   "detail": {
+    "divergent": "sft.py / data.py / evaluate.py / LogitProcessor.py. The remote versions carry extra capability used by the frozen protocol: sft.py `sft_mode`, evaluate.py + LogitProcessor.py `sid_utils.infer_prefix_index` (SID depth inferred from the catalogue rather than hardcoded), and a discard-warmup eval pass.",
+    "consequence": "Any reproduction must run against the remote files, hashed above. The local copies are for reading and analysis only."
+   }
+  }
+ },
+ "base_model": {
+  "path_remote": "/root/autodl-tmp/models/Qwen2.5-0.5B",
+  "bytes_total": 954000000,
+  "files": {
+   "model.safetensors": {
+    "sha256_16": "88c142557820ccad",
+    "bytes": 988097824
+   },
+   "config.json": {
+    "sha256_16": "479dcf0c5286339e",
+    "bytes": 681
+   },
+   "tokenizer.json": {
+    "sha256_16": "c0382117ea329cdf",
+    "bytes": 7031645
+   },
+   "tokenizer_config.json": {
+    "sha256_16": "c91efca15ceff6e9",
+    "bytes": 7228
+   },
+   "vocab.json": {
+    "sha256_16": "ca10d7e9fb3ed185",
+    "bytes": 2776833
+   },
+   "merges.txt": {
+    "sha256_16": "599bab5407508877",
+    "bytes": 1671839
+   },
+   "generation_config.json": {
+    "sha256_16": "8c970692323e3ea0",
+    "bytes": 138
+   }
+  },
+  "shared_by": "S0, S1, S2, C0, C1 all load this exact directory; no arm reuses another arm's fine-tuned weights"
+ },
+ "p0_inputs": {
+  "note": "hash-pinned inputs that must never change; verified UNCHANGED at every phase",
+  "files": {
+   "index/Industrial_and_Scientific.index.json": "53f1aefbe8b8aa77",
+   "index/Industrial_and_Scientific.emb-qwen-td.npy": "91a1c875e4b009f3",
+   "info/Industrial_and_Scientific_5_2016-10-2018-11.txt": "ebd7d594f2dc884d",
+   "train/Industrial_and_Scientific_5_2016-10-2018-11.csv": "5e5456d4b54681d7",
+   "valid/Industrial_and_Scientific_5_2016-10-2018-11.csv": "44d441a4cbb50e18",
+   "test/Industrial_and_Scientific_5_2016-10-2018-11.csv": "43cea20fc742e481"
+  },
+  "sizes": {
+   "train_csv_rows": 36259,
+   "train_csv_bytes": 19313857,
+   "valid_csv_rows": 4532,
+   "valid_csv_bytes": 2920408,
+   "test_csv_rows": 4533,
+   "test_csv_bytes": 3110221,
+   "emb_shape": [
+    3686,
+    2560
+   ],
+   "items": 3686
+  }
+ },
+ "sid_catalogues": {
+  "note": "one SID assignment per arm; index hash identifies the arm unambiguously",
+  "arms": {
+   "b0 (S0 SID, seed 2024)": {
+    "index_sha256_16": "b5a7d78b0f50e6b5",
+    "vocab": 573,
+    "layer_a_codewords": 61
+   },
+   "b0_seed7": {
+    "index_sha256_16": "462482ffe4a78adb",
+    "vocab": 587,
+    "layer_a_codewords": 76
+   },
+   "b2_lam005": {
+    "index_sha256_16": "80429c86e74f3d3a",
+    "vocab": 653,
+    "layer_a_codewords": 141
+   },
+   "b2_lam010 (S1 SID)": {
+    "index_sha256_16": "e7ec9b78be3013c7",
+    "vocab": 604,
+    "layer_a_codewords": 92
+   },
+   "b2 (S2 SID, lam 0.20)": {
+    "index_sha256_16": "7e9c2b9c2f420c41",
+    "vocab": 675,
+    "layer_a_codewords": 163
+   },
+   "b2_seed7": {
+    "index_sha256_16": "bc251e64399c593c",
+    "vocab": 687,
+    "layer_a_codewords": 175
+   }
+  },
+  "collab_embedding": {
+   "sha256_16": "3f0723530eb417e7",
+   "shape": [
+    3686,
+    32
+   ],
+   "dtype": "float32",
+   "mask_sha256_16": "b8697f067bc84bc0",
+   "items_with_evidence": 3589,
+   "items_masked": 97
+  }
+ },
+ "credentials_policy": "No SSH keys, tokens or passwords are recorded in any deliverable, and none are needed to reproduce the work. Connection details are withheld; only the software versions, GPU model and file hashes are published.",
+ "redaction": {
+  "applied_to": "environments.remote_training",
+  "fields": [
+   "container",
+   "host",
+   "ssh_port"
+  ],
+  "reason": "Private SSH endpoint / container identifier. The scientific content of this manifest is the per-file sha256 of the training sources and the hash-pinned inputs; the endpoint adds no reproducibility value.",
+  "original_sha256": "09fd961e7afe96f7049e60b10614057bc8823cb2335c5acba532234cbb0c4037",
+  "redacted_at": "2026-10-17",
+  "note": "This redaction exists ONLY in the release copy. The original workspace still holds the unredacted file."
+ }
+}

@@ -1,0 +1,66 @@
+{
+ "freq0": {
+  "rows": 149,
+  "users": 112,
+  "HR_delta_pp": 3.3557,
+  "HR_ci": [
+   0.6944,
+   6.4935
+  ],
+  "HR_excl0": true,
+  "NDCG_delta_pp": 0.8352,
+  "NDCG_ci": [
+   0.1725,
+   1.6156
+  ],
+  "NDCG_excl0": true
+ },
+ "low(1-2)": {
+  "rows": 448,
+  "users": 373,
+  "HR_delta_pp": 1.3393,
+  "HR_ci": [
+   0.4367,
+   2.4719
+  ],
+  "HR_excl0": true,
+  "NDCG_delta_pp": 1.3851,
+  "NDCG_ci": [
+   0.3633,
+   2.7204
+  ],
+  "NDCG_excl0": true
+ },
+ "mid(3-20)": {
+  "rows": 2719,
+  "users": 1508,
+  "HR_delta_pp": 2.0228,
+  "HR_ci": [
+   1.1029,
+   3.0737
+  ],
+  "HR_excl0": true,
+  "NDCG_delta_pp": 0.7426,
+  "NDCG_ci": [
+   0.3647,
+   1.1791
+  ],
+  "NDCG_excl0": true
+ },
+ "high(>20)": {
+  "rows": 1216,
+  "users": 782,
+  "HR_delta_pp": -7.4013,
+  "HR_ci": [
+   -9.2295,
+   -5.665
+  ],
+  "HR_excl0": true,
+  "NDCG_delta_pp": -3.9141,
+  "NDCG_ci": [
+   -4.7108,
+   -3.1468
+  ],
+  "NDCG_excl0": true
+ }
+}

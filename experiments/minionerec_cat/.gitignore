@@ -1,0 +1,15 @@
+# MiniOneRec-CAT -- keep generated artefacts out of version control.
+#
+# The code, configs and docs under this directory are meant to be committed; the
+# embedding copies, RQ-VAE checkpoints, regenerated SID catalogues and derived
+# splits are large, reproducible, and experiment-local.
+
+# generated artefacts
+runs/
+logs/
+
+# never commit staged embedding copies or checkpoints, wherever they appear here
+*.pth
+*.npy
+*.npz
+*.safetensors

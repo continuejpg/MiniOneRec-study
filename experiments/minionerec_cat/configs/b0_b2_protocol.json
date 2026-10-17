@@ -1,0 +1,137 @@
+{
+  "experiment": "minionerec_cat",
+  "phase": 0,
+  "category": "Industrial_and_Scientific",
+  "description": "Collaborative-alignment RQ-VAE for Semantic ID construction. Phase 0 prepares the reproducible entry points for B0 (text-only control) and B2 (behaviour-aware).",
+
+  "arms": {
+    "B0": {
+      "status": "RUNNING",
+      "purpose": "Text-only RQ-VAE control. Quantises the frozen item-text embeddings with the upstream RQ-VAE recipe and the upstream training budget, under pinned seeds, so B1/B2 have a like-for-like reference that P0 cannot provide (P0's quantiser checkpoint was never shipped).",
+      "input_embedding": "data/Amazon/index/<cat>.emb-qwen-td.npy  (copied into the run dir; the original is never written)",
+      "embedding_source": "precomputed item-text embedding, 3686 x 2560 float16, not L2-normalised",
+      "dag": ["train_rqvae", "extract_index", "rebuild_derived", "verify_chain", "audit_sid"],
+      "launcher": "scripts/run_b0.sh",
+      "seed_policy": "seed 2024 (primary) + seed 7 (replicate); all other hyper-parameters held identical"
+    },
+    "B1": {
+      "status": "NOT_STARTED",
+      "purpose": "Fuse the item-text embedding with an SVD/ItemCF collaborative representation, then run RQ-VAE on the fused vector.",
+      "naming_note": "This arm was previously labelled 'B2' in the Phase-0 report. The naming was corrected by the technical lead: embedding fusion is B1."
+    },
+    "B2": {
+      "status": "NOT_STARTED",
+      "purpose": "LETTER-inspired collaborative contrastive constraint on the RQ-VAE. Introduces a switchable auxiliary loss, L_total = L_RQVAE + lambda_cf * L_CF.",
+      "requirements": [
+        "the collaborative relation is built from the TRAIN split only",
+        "the contrastive term must back-propagate into the quantisation encoder",
+        "switchable: lambda_cf = 0 must reduce exactly to B0"
+      ],
+      "launcher": "to be written after B0 is accepted"
+    }
+  },
+
+  "quantiser": {
+    "code": "rq/models/rqvae.py + rq/models/rq.py + rq/trainer.py  (upstream, unmodified)",
+    "method": "RQ-VAE (residual vector quantisation over a VAE-style MLP encoder/decoder)",
+    "num_emb_list": [256, 256, 256],
+    "e_dim": 32,
+    "layers": [2048, 1024, 512, 256, 128, 64],
+    "sk_epsilons": [0.0, 0.0, 0.0],
+    "sk_iters": 50,
+    "kmeans_init": true,
+    "kmeans_iters": 100,
+    "beta": 0.25,
+    "quant_loss_weight": 1.0,
+    "loss_type": "mse",
+    "training_budget": {
+      "source_of_truth": "rq/rqvae.sh -- the launcher that was actually run for P0",
+      "lr": 1e-3,
+      "epochs": 10000,
+      "batch_size": 20480,
+      "batches_per_epoch_for_3686_items": 1,
+      "total_optimizer_steps": 10000,
+      "eval_step": 50,
+      "evaluations": 200,
+      "warning": "The argparse block in rq/rqvae.py declares epochs=5000 and batch_size=2048, which the launcher overrides. Using the argparse defaults gives 2 batches/epoch and, at 300 epochs, only 600 optimizer steps -- 16.7x short -- which collapses the first codebook (5/256 codewords used). Always take the budget from the launcher, not from the parser defaults."
+    },
+    "provenance": "Structural values (num_emb_list / e_dim / layers / sk_epsilons) mirror the upstream argparse defaults at rq/rqvae.py:17-47. The values P0 actually ran with are NOT recoverable (its checkpoint was never shipped), so these are OUR declared configuration and must be reported as such rather than as 'the P0 settings'.",
+    "delta_from_upstream": {
+      "warmup_epochs": {
+        "upstream_argparse_default": 50,
+        "launcher": "not passed, so 50 applied",
+        "ours": 0,
+        "reason": "With 1 batch/epoch the upstream default ramps the LR over the first 50 epochs. We keep a constant LR so the schedule is not a confound between seeds. This is a declared, deliberate deviation."
+      },
+      "seed": {
+        "upstream": 2024,
+        "ours": "2024 (primary) and 7 (replicate)",
+        "reason": "Two seeds are required to separate a SID effect from re-training noise."
+      }
+    }
+  },
+
+  "sid_format": {
+    "levels": 3,
+    "tokens_per_sid": 3,
+    "token_pattern": "<layer_index> e.g. <a_17><b_204><c_0>",
+    "prefixes": ["<a_{}>", "<b_{}>", "<c_{}>", "<d_{}>", "<e_{}>"],
+    "concatenation": "tokens are concatenated with no separator, brackets preserved (convert_dataset.semantic_tokens_to_id)",
+    "p0_reference": {
+      "items": 3686,
+      "distinct_sids": 3670,
+      "colliding_groups": 15,
+      "items_in_collisions": 31,
+      "items_unscorable_under_lowest_id_wins": 16,
+      "layer_usage": {"a": 48, "b": 256, "c": 256},
+      "entropy_bits": {"a": 5.3476, "b": 7.9168, "c": 7.8179},
+      "sid_tokens_in_vocab": 560
+    }
+  },
+
+  "collision_policy": {
+    "retry_rounds": 20,
+    "retry_mechanism": "re-quantise only the colliding items with use_sk=True on the last layer (sk_epsilon=0.003)",
+    "upstream_reference": "rq/generate_indices.py:106-133",
+    "p0_outcome": "failed to fully resolve: 15 groups survived after 20 rounds, 13 of them pinned at <c_0>",
+    "downstream_consequence": "calc.py:24-30 maps a SID back to the LOWEST item id in its collision group, so the higher-id partners can never be scored. This is a fixed ~2.49% loss on the test split (113 / 4533 rows) that no amount of SFT improvement can recover."
+  },
+
+  "guarantees": {
+    "p0_inputs": "opened read-only; assert_outside_p0() raises PermissionError on any write attempt inside data/Amazon or checkpoints/",
+    "outputs": "everything lands under experiments/minionerec_cat/runs/<tag>/",
+    "split_preservation": "rebuild_derived changes only the two SID columns; row count and row order are asserted equal",
+    "derived_chain": "index.json -> {train,valid,test}.csv + info/*.txt + sid_vocab.json, all regenerated together and cross-checked by verify_chain",
+    "reference_hashes": {
+      "data/Amazon/index/Industrial_and_Scientific.index.json": "53f1aefbe8b8aa77",
+      "data/Amazon/index/Industrial_and_Scientific.emb-qwen-td.npy": "91a1c875e4b009f3",
+      "data/Amazon/info/Industrial_and_Scientific_5_2016-10-2018-11.txt": "ebd7d594f2dc884d",
+      "data/Amazon/train/Industrial_and_Scientific_5_2016-10-2018-11.csv": "5e5456d4b54681d7",
+      "data/Amazon/valid/Industrial_and_Scientific_5_2016-10-2018-11.csv": "44d441a4cbb50e18",
+      "data/Amazon/test/Industrial_and_Scientific_5_2016-10-2018-11.csv": "43cea20fc742e481"
+    }
+  },
+
+  "fair_comparison": {
+    "frozen": [
+      "train/valid/test split files (byte-identical across arms)",
+      "SFT hyper-parameters: sample=-1, epochs=2, batch=64, micro=16, lr=3e-4, cutoff=512, seed=42, freeze_LLM=False",
+      "base model: Qwen2.5-0.5B",
+      "SFT data composition: SidSFTDataset + SidItemFeatDataset + FusionSeqRecDataset",
+      "evaluation protocol: num_beams=20, max_new_tokens=256, length_penalty=0.0, batch_size=8, full 4533-row test split",
+      "evaluator code: evaluate.py + calc.py, unmodified",
+      "SID level count (3) and token grammar"
+    ],
+    "varied": [
+      "the embedding the RQ-VAE quantises (text-only for B0, text+collaborative for B2)",
+      "consequently the resulting SID catalogue, its vocabulary and its collision count"
+    ],
+    "required_control_arm": "B0 plus a same-SID re-train at a second seed. Single-seed differences cannot be attributed to a SID change without a re-training variance baseline."
+  },
+
+  "known_gaps": {
+    "p0_quantiser_checkpoint": "not present locally or on the AutoDL instance (searched). P0's SID catalogue can therefore not be regenerated; it is treated as a frozen input.",
+    "raw_inter_files": "not present. convert_dataset.py cannot be re-run, which is why rebuild_derived re-letters the shipped CSVs instead.",
+    "p0_clean_sft_metrics_artifact": "runs/eval_clean_sft/test_beam20.json exists only on the AutoDL instance."
+  }
+}

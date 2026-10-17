@@ -1,0 +1,271 @@
+{
+ "reference_P0": {
+  "source": "README.md:63 (frozen P0 clean-SFT artifact, beam 20)",
+  "repo_HR@20": 0.19832341,
+  "repo_NDCG@20": 0.11786798
+ },
+ "arms": {
+  "S0": {
+   "arm": "S0",
+   "tag": "b0",
+   "rows": 4533,
+   "repo_sid_string": {
+    "HR@20": 0.19038164570924332,
+    "NDCG@20": 0.11791880376970441,
+    "hits": 863
+   },
+   "canonical_item": {
+    "HR@20": 0.19038164570924332,
+    "NDCG@20": 0.11791880376970441,
+    "hits": 863,
+    "caveat": "SID resolved to the LOWEST item id sharing it -- an arbitrary but fixed decoding policy, NOT proof the model identified the true item"
+   },
+   "diagnostics": {
+    "legal_sid_rate": 1.0,
+    "rows_with_duplicate_predictions": 0,
+    "duplicate_row_rate": 0.0,
+    "ambiguous_rows": 261,
+    "ambiguous_share": 0.05757776307081403,
+    "identity_mismatch_rows": 0
+   },
+   "by_frequency": {
+    "freq0": {
+     "n": 156,
+     "repo_HR@20": 0.0,
+     "canonical_item_HR@20": 0.0
+    },
+    "high(>20)": {
+     "n": 1284,
+     "repo_HR@20": 0.47585669781931467,
+     "canonical_item_HR@20": 0.47585669781931467
+    },
+    "low(1-2)": {
+     "n": 523,
+     "repo_HR@20": 0.0076481835564053535,
+     "canonical_item_HR@20": 0.0076481835564053535
+    },
+    "mid(3-20)": {
+     "n": 2570,
+     "repo_HR@20": 0.09649805447470818,
+     "canonical_item_HR@20": 0.09649805447470818
+    }
+   },
+   "artifact": "/root/autodl-tmp/p3_eval/S0_test_beam20.json",
+   "artifact_sha256": "133c0b020d9e9dc5"
+  },
+  "S1": {
+   "arm": "S1",
+   "tag": "b2_lam010",
+   "rows": 4533,
+   "repo_sid_string": {
+    "HR@20": 0.19479373483344364,
+    "NDCG@20": 0.12124518879621189,
+    "hits": 883
+   },
+   "canonical_item": {
+    "HR@20": 0.19479373483344364,
+    "NDCG@20": 0.12124518879621189,
+    "hits": 883,
+    "caveat": "SID resolved to the LOWEST item id sharing it -- an arbitrary but fixed decoding policy, NOT proof the model identified the true item"
+   },
+   "diagnostics": {
+    "legal_sid_rate": 1.0,
+    "rows_with_duplicate_predictions": 0,
+    "duplicate_row_rate": 0.0,
+    "ambiguous_rows": 261,
+    "ambiguous_share": 0.05757776307081403,
+    "identity_mismatch_rows": 0
+   },
+   "by_frequency": {
+    "freq0": {
+     "n": 156,
+     "repo_HR@20": 0.0,
+     "canonical_item_HR@20": 0.0
+    },
+    "high(>20)": {
+     "n": 1284,
+     "repo_HR@20": 0.48208722741433024,
+     "canonical_item_HR@20": 0.48208722741433024
+    },
+    "low(1-2)": {
+     "n": 523,
+     "repo_HR@20": 0.011472275334608031,
+     "canonical_item_HR@20": 0.011472275334608031
+    },
+    "mid(3-20)": {
+     "n": 2570,
+     "repo_HR@20": 0.10038910505836576,
+     "canonical_item_HR@20": 0.10038910505836576
+    }
+   },
+   "artifact": "/root/autodl-tmp/p3_eval/S1_test_beam20.json",
+   "artifact_sha256": "68249656bd93b5b4"
+  },
+  "S2": {
+   "arm": "S2",
+   "tag": "b2",
+   "rows": 4533,
+   "repo_sid_string": {
+    "HR@20": 0.18376351202294286,
+    "NDCG@20": 0.11444927573088427,
+    "hits": 833
+   },
+   "canonical_item": {
+    "HR@20": 0.18376351202294286,
+    "NDCG@20": 0.11444927573088427,
+    "hits": 833,
+    "caveat": "SID resolved to the LOWEST item id sharing it -- an arbitrary but fixed decoding policy, NOT proof the model identified the true item"
+   },
+   "diagnostics": {
+    "legal_sid_rate": 1.0,
+    "rows_with_duplicate_predictions": 0,
+    "duplicate_row_rate": 0.0,
+    "ambiguous_rows": 261,
+    "ambiguous_share": 0.05757776307081403,
+    "identity_mismatch_rows": 0
+   },
+   "by_frequency": {
+    "freq0": {
+     "n": 156,
+     "repo_HR@20": 0.00641025641025641,
+     "canonical_item_HR@20": 0.00641025641025641
+    },
+    "high(>20)": {
+     "n": 1284,
+     "repo_HR@20": 0.4696261682242991,
+     "canonical_item_HR@20": 0.4696261682242991
+    },
+    "low(1-2)": {
+     "n": 523,
+     "repo_HR@20": 0.0038240917782026767,
+     "canonical_item_HR@20": 0.0038240917782026767
+    },
+    "mid(3-20)": {
+     "n": 2570,
+     "repo_HR@20": 0.08832684824902724,
+     "canonical_item_HR@20": 0.08832684824902724
+    }
+   },
+   "artifact": "/root/autodl-tmp/p3_eval/S2_test_beam20.json",
+   "artifact_sha256": "9ff03aa1a10f9708"
+  }
+ },
+ "contrasts": {
+  "S1": {
+   "vs": "S0",
+   "repo_HR@20": {
+    "S0": 0.19038164570924332,
+    "S1": 0.19479373483344364,
+    "abs_pp": 0.4412,
+    "rel_pct": 2.3175
+   },
+   "repo_NDCG@20": {
+    "abs_pp": 0.3326,
+    "rel_pct": 2.8209
+   },
+   "canonical_HR@20": {
+    "abs_pp": 0.4412
+   },
+   "bootstrap_HR_row": {
+    "mean_delta_pp": 0.4412,
+    "ci_low_pp": -0.2647,
+    "ci_high_pp": 1.1692,
+    "excludes_zero": false,
+    "resample_unit": "row",
+    "n_units": 4533,
+    "n_boot": 10000
+   },
+   "bootstrap_HR_user": {
+    "mean_delta_pp": 0.4412,
+    "ci_low_pp": -0.2697,
+    "ci_high_pp": 1.143,
+    "excludes_zero": false,
+    "resample_unit": "cluster",
+    "n_units": 1987,
+    "n_boot": 10000
+   },
+   "bootstrap_NDCG_row": {
+    "mean_delta_pp": 0.3326,
+    "ci_low_pp": -0.0055,
+    "ci_high_pp": 0.6879,
+    "excludes_zero": false,
+    "resample_unit": "row",
+    "n_units": 4533,
+    "n_boot": 10000
+   },
+   "bootstrap_NDCG_user": {
+    "mean_delta_pp": 0.3326,
+    "ci_low_pp": -0.0062,
+    "ci_high_pp": 0.6753,
+    "excludes_zero": false,
+    "resample_unit": "cluster",
+    "n_units": 1987,
+    "n_boot": 10000
+   }
+  },
+  "S2": {
+   "vs": "S0",
+   "repo_HR@20": {
+    "S0": 0.19038164570924332,
+    "S2": 0.18376351202294286,
+    "abs_pp": -0.6618,
+    "rel_pct": -3.4762
+   },
+   "repo_NDCG@20": {
+    "abs_pp": -0.347,
+    "rel_pct": -2.9423
+   },
+   "canonical_HR@20": {
+    "abs_pp": -0.6618
+   },
+   "bootstrap_HR_row": {
+    "mean_delta_pp": -0.6618,
+    "ci_low_pp": -1.3904,
+    "ci_high_pp": 0.0662,
+    "excludes_zero": false,
+    "resample_unit": "row",
+    "n_units": 4533,
+    "n_boot": 10000
+   },
+   "bootstrap_HR_user": {
+    "mean_delta_pp": -0.6618,
+    "ci_low_pp": -1.381,
+    "ci_high_pp": 0.0645,
+    "excludes_zero": false,
+    "resample_unit": "cluster",
+    "n_units": 1987,
+    "n_boot": 10000
+   },
+   "bootstrap_NDCG_row": {
+    "mean_delta_pp": -0.347,
+    "ci_low_pp": -0.7056,
+    "ci_high_pp": 0.0064,
+    "excludes_zero": false,
+    "resample_unit": "row",
+    "n_units": 4533,
+    "n_boot": 10000
+   },
+   "bootstrap_NDCG_user": {
+    "mean_delta_pp": -0.347,
+    "ci_low_pp": -0.6839,
+    "ci_high_pp": -0.0135,
+    "excludes_zero": true,
+    "resample_unit": "cluster",
+    "n_units": 1987,
+    "n_boot": 10000
+   }
+  }
+ },
+ "decode_settings": {
+  "num_beams": 20,
+  "max_new_tokens": 256,
+  "length_penalty": 0.0,
+  "batch_size": 8,
+  "rows": 4533
+ },
+ "notes": {
+  "canonical_item": "Canonical-Item resolves a predicted SID to the lowest item id sharing it. It is an arbitrary but FIXED decoding policy and must not be presented as true item-level performance.",
+  "no_selection_on_test": "lambda_cf was fixed before any test evaluation; no configuration was changed after seeing these numbers.",
+  "significance": "Bootstrap intervals are over the SAME test rows (paired). Seed spread was never used as a significance threshold."
+ }
+}
